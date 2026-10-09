@@ -32,9 +32,9 @@ Use this first. Each line names the law to open when the case is close. Levels: 
 - **Bonuses kill one named objection each** (HOR-9 🟠). **Scarcity and urgency only when true** (HOR-10 🟠, FLS-6 🟢). Admit one real minor limit (FLS-6 🟢).
 - **Move perception before paying for real improvement**, through a visible lever (HOR-6 🟠, FLS-7 🟠). Frame the outcome through status (HOR-7 🟠).
 - **Cash limits growth** -> structure payments so the upfront amount covers acquisition (HOR-8 🟠).
-- **Before scaling paid ads** -> 30-day gross profit per customer must cover CAC, target 2x (MNY-1, MNY-2 🟠); steer on LTGP:CAC, 3:1 minimum with no human in the loop (MNY-3 🟠). Check with `scripts/money_model.py`.
+- **Before scaling paid ads** -> 30-day gross profit per customer must cover CAC, target 2x (MNY-1, MNY-2 🟠); steer on LTGP:CAC, 3:1 minimum with no human in the loop (MNY-3 🟠). For a scored verdict, run `scripts/money_model.py` and follow its agent brief.
 - **Entry offer must pay for itself** (MNY-4 🟠); **upsell the next problem the purchase created** (MNY-5 🟠); **downsell the terms, never the price** (MNY-6 🟠); **continuity only after a proven front end** (MNY-7 🟠).
-- **Score the offer on the Value Equation** before building more: `scripts/value_equation.py` (HOR-2 🟠).
+- **Score the offer on the Value Equation** before building more: run `scripts/value_equation.py`, then score it yourself from the printed brief (HOR-2 🟠).
 - **Prevention offer** -> threat and credible simple solution in the same sentence (FLS-8 🟢).
 
 ## 4. Getting the first customers

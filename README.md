@@ -60,15 +60,18 @@ people buy and what gets executed, anonymized. Personal finance and investing ar
 
 ## Tools
 
-Executable companions to the laws, in `scripts/`:
+Agent-led scoring companions in `scripts/`. The scripts never score: they interview the
+user (or take facts as arguments) and print a markdown **agent brief**, which the agent
+follows to score and to deliver the brutal "grill me" critique:
 
-- `scripts/value_equation.py` scores an offer on HOR-2's Value Equation (dream outcome,
-  perceived likelihood, time delay, effort), ranks offers against each other and names the
-  weakest driver with the fix to pull first. Interactive, or pass `--dream`, `--likelihood`,
-  `--delay-days`, `--effort`; `--compare offers.json` ranks several offers.
-- `scripts/money_model.py` checks a money model against MNY-1 to MNY-3: the 30-day rule
-  (30-day gross profit vs CAC, 2x target) and the LTGP:CAC bar for the humans in the loop.
-  Pass `--cac`, `--profit-30d`, `--ltgp`, `--humans`, or answer interactively.
+- `scripts/value_equation.py` collects the offer facts, then briefs the agent to rate each
+  Value Equation driver 1-10 with justification, compute the score, name the weakest
+  driver, and grill with fixes citing HOR-2 to HOR-10.
+- `scripts/money_model.py` collects the money-model numbers (gross profit, never revenue),
+  then briefs the agent to judge the 30-day rule and the LTGP:CAC bar with the fix order
+  from MNY-1 to MNY-10.
+
+See "Agent-led offer scoring" in `SKILL.md` for the loop.
 
 `artifacts/` holds the interactive French deep-dive pages for *$100M Offers* and
 *$100M Money Models*, linked from their source files.

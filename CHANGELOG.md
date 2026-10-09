@@ -6,9 +6,10 @@
   MNY-1 to MNY-10): monetization and offer sequencing, Client-Financed Acquisition, the
   30-day rule, LTGP:CAC bars, upsells, downsells, continuity. 120 laws in all.
 - *$100M Offers* source: M-A-G-I-C naming added to HOR-3, guarantee types detailed in HOR-5.
-- New tools: `scripts/value_equation.py` (scores an offer on HOR-2's four drivers, names the
-  weakest and the fix) and `scripts/money_model.py` (checks the 30-day rule and LTGP:CAC,
-  MNY-1 to MNY-3).
+- New tools: `scripts/value_equation.py` and `scripts/money_model.py`. Agent-led scoring:
+  the scripts interview the user and print an agent brief; the agent scores each driver,
+  computes the score, and delivers the "grill me" critique with fixes (HOR-2 to HOR-10,
+  MNY-1 to MNY-10). Documented in `SKILL.md` ("Agent-led offer scoring").
 - `artifacts/`: interactive French summary pages for *$100M Offers* and *$100M Money Models*,
   linked from their source files.
 

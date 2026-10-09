@@ -89,6 +89,21 @@ write English. Keep law IDs and the authors' canonical names in English (Grand S
 Keep it under about 250 words unless the user asks for more. Translate the labels into the
 user's language.
 
+## Agent-led offer scoring
+
+The scripts do not score; they brief. When the user wants an offer scored
+("grill my offer", "score this"), run the matching script and follow the brief it prints:
+
+- `scripts/value_equation.py`: interviews the user about the offer (or takes the facts
+  as arguments), then prints an agent brief. You score each Value Equation driver 1-10
+  with justification, compute the score, name the weakest driver, and deliver the brutal
+  "grill me" critique with fixes citing HOR-2 to HOR-10.
+- `scripts/money_model.py`: collects the money-model numbers, then prints an agent brief.
+  You judge the 30-day rule and the LTGP:CAC bar, then deliver the verdict with the fix
+  order citing MNY-1 to MNY-10.
+
+Read the brief, score from its facts only, never invent facts or numbers.
+
 ## Where the laws are
 
 | File | IDs | Use for |
