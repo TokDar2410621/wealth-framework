@@ -52,4 +52,4 @@ The verdict weighs them: breaking a ðŸŸ¢ law weighs more than going against a ðŸ
 7. Law IDs: HOR (Hormozi, $100M Offers), LDS (Hormozi, $100M Leads), THI (Thiel), DEM (DeMarco),
    KAW (Kawasaki), G48 (Greene, 48 Laws of Power), GHN (Greene, Laws of Human Nature),
    DAL (Dalio), FLE (field laws: execution and distribution), FLS (field laws: selling and offers),
-   TAB (La Table: frameworks of the greats).
+   TAB (La Table: frameworks of the greats), MNY (Hormozi, $100M Money Models).

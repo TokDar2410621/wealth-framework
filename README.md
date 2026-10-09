@@ -1,6 +1,6 @@
 # wealth-framework
 
-A Claude Code skill that judges business decisions against the laws of eight books, field-tested
+A Claude Code skill that judges business decisions against the laws of nine books, field-tested
 selling and execution laws, and the decision frameworks of great founders.
 
 Bring it an idea, an offer, a price or a choice. When a decision is at stake, it answers
@@ -35,6 +35,7 @@ Then talk business with Claude as usual. The skill loads on its own.
 |---|---|---|
 | Alex Hormozi, *$100M Offers* | `sources/hormozi-100m-offers.md` | HOR-1 to HOR-10 |
 | Alex Hormozi, *$100M Leads* | `sources/hormozi-100m-leads.md` | LDS-1 to LDS-12 |
+| Alex Hormozi, *$100M Money Models* | `sources/hormozi-100m-money-models.md` | MNY-1 to MNY-10 |
 | Peter Thiel, *Zero to One* | `sources/thiel-zero-to-one.md` | THI-1 to THI-8 |
 | MJ DeMarco, *The Millionaire Fastlane* (CENTS) | `sources/demarco-millionaire-fastlane.md` | DEM-1 to DEM-8 |
 | Guy Kawasaki, *The Art of the Start* | `sources/kawasaki-art-of-the-start.md` | KAW-1 to KAW-9 |
@@ -45,7 +46,7 @@ Then talk business with Claude as usual. The skill loads on its own.
 | Field laws: execution and distribution | `sources/field-laws-execution.md` | FLE-1 to FLE-12 |
 | La Table: decision frameworks of the greats (Bezos, Paul Graham, Taleb, Musk, Thiel, Zuckerberg) | `sources/la-table-frameworks.md` | TAB-1 to TAB-12 |
 
-110 laws in all. `cheatsheet.md` gathers the decision rules by situation; `glossary.md` lists
+120 laws in all. `cheatsheet.md` gathers the decision rules by situation; `glossary.md` lists
 every law by name.
 
 **Evidence levels.** Every law is marked 🟢 proven (controlled study, audited data, public law),
@@ -56,6 +57,21 @@ decides a no-go.
 **What the files are.** Distilled decision rules written from reading notes and research
 summaries, never the books' text. The field laws come from one founder's research log on why
 people buy and what gets executed, anonymized. Personal finance and investing are out of scope.
+
+## Tools
+
+Executable companions to the laws, in `scripts/`:
+
+- `scripts/value_equation.py` scores an offer on HOR-2's Value Equation (dream outcome,
+  perceived likelihood, time delay, effort), ranks offers against each other and names the
+  weakest driver with the fix to pull first. Interactive, or pass `--dream`, `--likelihood`,
+  `--delay-days`, `--effort`; `--compare offers.json` ranks several offers.
+- `scripts/money_model.py` checks a money model against MNY-1 to MNY-3: the 30-day rule
+  (30-day gross profit vs CAC, 2x target) and the LTGP:CAC bar for the humans in the loop.
+  Pass `--cac`, `--profit-30d`, `--ltgp`, `--humans`, or answer interactively.
+
+`artifacts/` holds the interactive French deep-dive pages for *$100M Offers* and
+*$100M Money Models*, linked from their source files.
 
 ## How it was checked
 

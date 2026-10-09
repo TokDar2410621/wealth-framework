@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<title>$100M Money Models de Hormozi : résumé</title>
+<style>
+:root{
+  --bg:#f6f3ee; --surface:#ffffff; --surface2:#efeae2; --ink:#171512; --muted:#6f6a61;
+  --line:#ddd6ca; --accent:#b7791f; --accent-ink:#ffffff; --good:#1e7d4f; --bad:#b42318;
+  --warn:#b7791f; --chip:#efe6d4; --shadow:0 10px 30px rgba(23,21,18,.08);
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#0c0b09; --surface:#171512; --surface2:#201d18; --ink:#f3efe7; --muted:#a89f91;
+    --line:#322d25; --accent:#e3a93d; --accent-ink:#171512; --good:#4cc38a; --bad:#ff8a7a;
+    --warn:#e3a93d; --chip:#2a251b; --shadow:0 10px 30px rgba(0,0,0,.35); }
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Georgia,'Times New Roman',serif;line-height:1.55}
+a{color:var(--accent)} a:hover{text-decoration:underline}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px 72px}
+.hero{padding:52px 0 28px;border-bottom:2px solid var(--ink)}
+.eyebrow{font-family:system-ui,-apple-system,Segoe UI,sans-serif;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700}
+h1{font-size:clamp(2.2rem,6vw,4.2rem);line-height:.95;margin:.35rem 0 .6rem;font-weight:900;letter-spacing:-.02em}
+h1 em{font-style:italic;color:var(--accent)}
+.lede{font-size:clamp(1.05rem,2.4vw,1.35rem);max-width:760px;color:var(--ink)}
+.meta{font-family:system-ui,sans-serif;font-size:.85rem;color:var(--muted);margin-top:14px;display:flex;flex-wrap:wrap;gap:8px 18px}
+.thesis{margin:28px 0;padding:22px;border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow)}
+.thesis p{margin:0;font-size:1.12rem}
+.thesis strong{color:var(--accent)}
+h2{font-size:clamp(1.55rem,3.4vw,2.2rem);margin:52px 0 8px;line-height:1.1;letter-spacing:-.01em}
+h2 .num{font-family:system-ui,sans-serif;font-size:.8rem;letter-spacing:.12em;color:var(--accent);display:block;text-transform:uppercase;margin-bottom:6px}
+.sub{color:var(--muted);max-width:780px;margin:0 0 22px;font-size:1rem}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+.card h3{margin:0 0 8px;font-size:1.15rem}
+.card p{margin:0;color:var(--muted);font-size:.96rem}
+.card .big{font-size:1.7rem;font-weight:900;color:var(--ink);line-height:1.1;margin-bottom:6px}
+.tag{display:inline-block;font-family:system-ui,sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--chip);color:var(--accent);padding:4px 9px;border-radius:999px;margin-bottom:10px}
+section{scroll-margin-top:20px}
+.tabs{font-family:system-ui,sans-serif;display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}
+.tabs button{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:10px 14px;border-radius:999px;cursor:pointer;font-weight:700;font-size:.9rem}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.offer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.offer{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
+.offer h4{margin:0 0 6px;font-size:1.02rem}
+.offer p{margin:0;color:var(--muted);font-size:.92rem}
+.calc{font-family:system-ui,sans-serif;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+.calc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+label{font-size:.82rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px}
+input[type=number],input[type=range]{width:100%}
+input[type=number]{padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface2);color:var(--ink);font-size:1rem}
+.results{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.result{background:var(--surface2);border-radius:12px;padding:14px}
+.result .val{font-size:1.55rem;font-weight:900;line-height:1}
+.result .lab{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:6px}
+.verdict{margin-top:14px;padding:14px 16px;border-radius:12px;border:1px solid var(--line);font-size:.98rem}
+.verdict.good{border-color:var(--good)} .verdict.bad{border-color:var(--bad)} .verdict.warn{border-color:var(--warn)}
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:22px 0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.step{background:var(--surface);padding:20px;border-right:1px solid var(--line)}
+.step:last-child{border-right:0}
+.step .n{font-family:system-ui,sans-serif;font-weight:900;font-size:2rem;color:var(--accent);line-height:1}
+.step h3{margin:8px 0 6px} .step p{margin:0;color:var(--muted);font-size:.94rem}
+table{width:100%;border-collapse:collapse;font-family:system-ui,sans-serif;font-size:.92rem;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th,td{padding:12px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+th{background:var(--surface2);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:0}
+.rec{counter-reset:rec}
+.rec li{margin:0 0 14px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;list-style:none;position:relative}
+.rec{padding:0}
+.rec li::before{counter-increment:rec;content:counter(rec);font-family:system-ui,sans-serif;font-weight:900;color:var(--accent);font-size:1.3rem;display:block;margin-bottom:4px}
+.rec strong{display:block;margin-bottom:4px}
+.rec p{margin:0;color:var(--muted);font-size:.95rem}
+.callout{border-left:4px solid var(--accent);background:var(--surface);padding:16px 18px;border-radius:0 12px 12px 0;margin:20px 0}
+.callout p{margin:0}
+.src{font-family:system-ui,sans-serif;font-size:.82rem;color:var(--muted)}
+.src li{margin-bottom:6px;word-break:break-all}
+.note{font-family:system-ui,sans-serif;font-size:.82rem;color:var(--muted);margin-top:10px}
+.ratio-bar{display:flex;gap:6px;margin-top:10px}
+.ratio-bar span{flex:1;text-align:center;font-family:system-ui,sans-serif;font-size:.75rem;padding:8px 4px;border-radius:8px;background:var(--surface2);border:1px solid var(--line)}
+.ratio-bar span.hot{background:var(--ink);color:var(--bg);font-weight:800}
+.asc-out{font-size:2.4rem;font-weight:900;line-height:1;color:var(--accent)}
+input[type=range]{accent-color:var(--accent)}
+@media (max-width:760px){
+  .grid3,.grid2,.calc-grid,.results,.flow{grid-template-columns:1fr}
+  .step{border-right:0;border-bottom:1px solid var(--line)} .step:last-child{border-bottom:0}
+  .wrap{padding:0 14px 56px} .hero{padding-top:34px}
+  table,thead,tbody,tr,th,td{display:block} thead{display:none}
+  td{border-bottom:0;padding:8px 14px} tr{border-bottom:1px solid var(--line);padding:8px 0}
+  td::before{content:attr(data-l);display:block;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="eyebrow">Alex Hormozi · Acquisition.com · 2025</div>
+  <h1>$100M <em>Money Models</em></h1>
+  <p class="lede">Le troisième tome de la trilogie $100M. Après les offres (<i>$100M Offers</i>, 2021) et l'acquisition (<i>$100M Leads</i>, 2023), voici la monétisation : une fois le client acquis, que lui vendre ensuite, quand, et comment — pour en tirer le maximum, le plus vite possible.</p>
+  <div class="meta"><span>≈190 pages (Google Books)</span><span>Publié août 2025</span><span>Recherche du 9 octobre 2026 · index uniquement</span></div>
+  <div class="thesis"><p><strong>Thèse centrale :</strong> un <i>money model</i> est une séquence délibérée d'offres — ce que l'on vend, quand on le vend et comment les offres s'articulent. Objectif chiffré : qu'un seul client génère assez de profit pour financer l'acquisition et le service d'au moins deux autres clients en moins de 30 jours. C'est le <strong>Client-Financed Acquisition</strong> : la croissance s'autofinance et le cash cesse d'être le goulot.</p></div>
+</header>
+
+<section id="trilogie">
+  <h2><span class="num">01 · La trilogie</span>Trois livres, trois systèmes</h2>
+  <p class="sub">Chaque tome couvre une étape distincte du parcours client. <i>Money Models</i> ne remplace pas les deux premiers : il détermine combien chaque client rapporte, et à quelle vitesse.</p>
+  <div class="grid3">
+    <div class="card"><span class="tag">2021 · Convertir</span><div class="big">$100M Offers</div><p>Fabriquer des offres si bonnes que refuser paraît stupide.</p></div>
+    <div class="card"><span class="tag">2023 · Acquérir</span><div class="big">$100M Leads</div><p>Attirer des prospects et les transformer en acheteurs.</p></div>
+    <div class="card"><span class="tag">2025 · Monétiser</span><div class="big">$100M Money Models</div><p>Que vendre ensuite, quand et comment, pour maximiser la valeur de chaque client acquis.</p></div>
+  </div>
+  <div class="callout"><p>Conséquence stratégique : une entreprise avec un money model supérieur peut <strong>surenchérir durablement</strong> sur l'acquisition — payer le clic plus cher que ses concurrents — parce que chaque client vaut plus. À l'inverse, un mauvais modèle (CAC supérieur au profit) enclenche la spirale : on coupe la pub, on a moins de clients, on brûle du cash personnel, on « prie pour le profit ».</p></div>
+</section>
+
+<section id="definition">
+  <h2><span class="num">02 · Définition</span>Ce n'est pas ce que tu vends. C'est comment tu factures.</h2>
+  <p class="sub">Le point distinctif du livre : un money model ne porte pas sur le produit, mais sur <strong>comment on facture, package et séquence</strong> ce que l'on vend déjà. Deux entreprises au produit identique peuvent avoir des destins opposés selon leur money model.</p>
+  <div class="grid2">
+    <div class="card"><h3>Ce que c'est</h3><p>« Ce que vous offrez, quand vous l'offrez et comment vous l'offrez. » On transforme un business en changeant son modèle de monétisation, pas son produit.</p></div>
+    <div class="card"><h3>La machine en cinq temps</h3><p>Attirer des clients de façon fiable → faire en sorte qu'ils se paient eux-mêmes → faire en sorte qu'ils paient pour d'autres clients → maximiser leur valeur à vie → inonder la publicité.</p></div>
+  </div>
+</section>
+
+<section id="calculateur">
+  <h2><span class="num">03 · Le test chiffré</span>Client-Financed Acquisition : ton modèle passe-t-il le test ?</h2>
+  <p class="sub">Trois métriques font le cœur économique du livre. Entre tes chiffres : le calculateur applique la règle des 30 jours, la règle 2× CAC et le ratio LTGP:CAC.</p>
+  <div class="calc">
+    <div class="calc-grid">
+      <div><label for="cac">Coût d'acquisition (CAC) — $</label><input type="number" id="cac" value="300" min="0" step="10"></div>
+      <div><label for="p30">Profit brut à 30 jours — $</label><input type="number" id="p30" value="750" min="0" step="10"></div>
+      <div><label for="ltgp">Profit brut vie entière (LTGP) — $</label><input type="number" id="ltgp" value="2400" min="0" step="10"></div>
+    </div>
+    <div class="results">
+      <div class="result"><div class="val" id="r-multiple">—</div><div class="lab">Profit 30 j ÷ CAC</div></div>
+      <div class="result"><div class="val" id="r-ratio">—</div><div class="lab">Ratio LTGP : CAC</div></div>
+      <div class="result"><div class="val" id="r-clients">—</div><div class="lab">Clients financés par 1 client</div></div>
+    </div>
+    <div class="verdict warn" id="verdict">…</div>
+    <p class="note">Plancher sain du ratio LTGP:CAC selon le livre : ~3:1 sans humain dans la boucle, 6:1 avec un humain, 9:1 avec deux, 12:1 avec trois. Les 30 jours correspondent au cycle de crédit sans intérêt d'une carte bancaire — du capital de travail gratuit. Un <i>bon</i> modèle : profit à 30 jours supérieur au coût d'acquisition + service. Un modèle <i>$100M</i> : le profit d'un client finance l'acquisition d'un grand nombre d'autres.</p>
+  </div>
+</section>
+
+<section id="stades">
+  <h2><span class="num">04 · Le framework</span>Trois stades, à construire un par un</h2>
+  <p class="sub">Le livre tient en trois stades de maturité. Règle de discipline : perfectionner <strong>une offre à la fois</strong>, ne jamais déployer le modèle complet d'un coup — chaque stade finance le suivant.</p>
+  <div class="flow">
+    <div class="step"><div class="n">I</div><h3>Get Cash</h3><p><strong>Attraction Offers.</strong> Attirer des clients pour moins cher, avec une offre d'entrée rentable dès le jour 1 — jamais de <i>loss leader</i>. Exemple du livre : les salles Gym Launch, cash-positives dès le premier jour.</p></div>
+    <div class="step"><div class="n">II</div><h3>Get More Cash</h3><p><strong>Upsell &amp; Downsell Offers.</strong> Faire dépenser plus, plus vite : d'abord les upsells (résoudre le problème suivant), puis les downsells pour rattraper les « non ».</p></div>
+    <div class="step"><div class="n">III</div><h3>Get The Most Cash</h3><p><strong>Continuity Offers.</strong> Maximiser la dépense totale du client : vendre une fois, être payé en continu.</p></div>
+  </div>
+
+  <h3 style="margin:26px 0 10px">Explorateur des offres — les 4 types, ~15 offres concrètes</h3>
+  <div class="tabs" role="tablist" aria-label="Types d'offres">
+    <button role="tab" aria-selected="true" data-t="attraction">Attraction</button>
+    <button role="tab" aria-selected="false" data-t="upsell">Upsell</button>
+    <button role="tab" aria-selected="false" data-t="downsell">Downsell</button>
+    <button role="tab" aria-selected="false" data-t="continuity">Continuity</button>
+  </div>
+  <p class="sub" id="offer-problem" style="margin-bottom:14px"></p>
+  <div class="offer-grid" id="offer-grid"></div>
+</section>
+
+<section id="exemples">
+  <h2><span class="num">05 · Preuves du livre</span>Les exemples canoniques</h2>
+  <p class="sub">Tous les cas ci-dessous viennent du livre et du portefeuille d'Hormozi — preuves anecdotiques et auto-déclarées, sans validation indépendante (voir le regard critique plus bas).</p>
+  <div class="grid2">
+    <div class="card"><span class="tag">Upsell</span><h3>Burger, frites &amp; soda</h3><p>Un burger à 0,25 $ de profit devient 3,00 $ de profit grâce aux upsells. Chaque upsell résout le nouveau problème créé par l'achat précédent — « you can't have X without Y ».</p></div>
+    <div class="card"><span class="tag">Upsell</span><h3>Location de voiture : 19 $ → 100 $+/jour</h3><p>Une réservation à 19 $/jour dépasse 100 $/jour via une séquence : surclassement du véhicule, retour tardif, assurance premium, carburant prépayé. Le client paie plus et repart plus satisfait.</p></div>
+    <div class="card"><span class="tag">Upsell</span><h3>Prestige Labs : 270 K$ → 1,6 M$/mois</h3><p>Croissance attribuée aux upsells, selon les notes de lecteurs du livre.</p></div>
+    <div class="card"><span class="tag">Continuity</span><h3>Gym Launch : 42 000 $ de valeur client annuelle</h3><p>Bâtie via les abonnements avant la revente à un fonds de private equity. Le portefeuille Acquisition.com (~200 M$/an, chiffre auto-déclaré) repose largement sur des modèles récurrents.</p></div>
+    <div class="card"><span class="tag">Méta-preuve</span><h3>Le lancement du livre lui-même</h3><p>Événement live gratuit massif (plus de 500 000 inscrits — attraction), bonuses d'achat en volume (upsells), 4 M$ de publicité convertis en 6,5 M$ de précommandes (ROAS de 1,6). Hormozi revendique 3,6 millions d'exemplaires en 72 heures et un record Guinness — chiffres auto-déclarés par l'auteur/éditeur.</p></div>
+    <div class="card"><span class="tag">Cas limite</span><h3>Quand le client n'achète qu'une fois</h3><p>La <i>boot factory</i> qui sert des touristes n'achetant qu'une paire de bottes de leur vie : il faut alors maximiser le ticket de cette unique transaction — à condition d'en fournir la valeur en face.</p></div>
+  </div>
+</section>
+
+<section id="ascension">
+  <h2><span class="num">06 · Multiplicateurs</span>La math de l'ascension</h2>
+  <p class="sub">Doubler la valeur × doubler le volume × doubler la vitesse de paiement = <strong>8×</strong> de croissance. Tripler chacun = <strong>27×</strong>. D'où l'obsession du livre pour la <i>vitesse</i> d'encaissement autant que pour le montant. Bouge les curseurs :</p>
+  <div class="calc">
+    <div class="calc-grid">
+      <div><label>Valeur par client ×<span id="v-val">2</span></label><input type="range" id="s-val" min="1" max="5" step="0.5" value="2"></div>
+      <div><label>Volume (clients) ×<span id="v-vol">2</span></label><input type="range" id="s-vol" min="1" max="5" step="0.5" value="2"></div>
+      <div><label>Vitesse de paiement ×<span id="v-vit">2</span></label><input type="range" id="s-vit" min="1" max="5" step="0.5" value="2"></div>
+    </div>
+    <div style="margin-top:18px"><div class="asc-out" id="asc-out">8×</div><div class="lab" style="font-family:system-ui,sans-serif;font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Croissance composée</div></div>
+    <p class="note"><strong>BAMFAM</strong> (<i>Book A Meeting From A Meeting</i>) : ne jamais terminer une interaction client sans réserver la suivante — chaque point de contact est une occasion d'offre. Et le mantra : « <i>Simple scales, fancy fails</i> » — trouver 100 façons de vendre le même produit plutôt que 100 produits.</p>
+  </div>
+</section>
+
+<section id="recommandations">
+  <h2><span class="num">07 · Recommandations</span>Pour un fondateur services / SaaS</h2>
+  <p class="sub">Les huit recommandations du rapport de recherche, adaptées aux services et au SaaS.</p>
+  <ol class="rec">
+    <li><strong>Auditer son modèle actuel en 4 questions</strong><p>Ai-je une offre d'attraction rentable ? Un upsell ? Un downsell ? Une continuity ? Identifier le maillon manquant rapporte plus que chercher de nouveaux clients.</p></li>
+    <li><strong>Rendre le front-end cash-positif</strong><p>Ne plus « acheter » des clients à perte. Pour un SaaS : préférer « Pay Less Now or Pay More Later » (période gratuite puis plein tarif, option immédiate remisée + bonus) à l'essai gratuit pur qui saigne la trésorerie.</p></li>
+    <li><strong>Construire l'upsell sur le problème suivant</strong><p>En services : après l'audit, vendre l'implémentation ; après le site, le SEO puis la maintenance. En SaaS : onboarding assisté, sièges supplémentaires, tier supérieur. Présenter l'ancre premium (5-10×) avant l'offre cœur.</p></li>
+    <li><strong>Systématiser les downsells sans brader</strong><p>Prospect qui dit non au devis : plan de paiement (même prix total, échelonné), essai avec pénalité, ou version allégée — jamais la même chose moins chère. Un « non » porte sur <i>cette</i> offre, pas sur <i>toutes</i>.</p></li>
+    <li><strong>Installer la continuity en dernier</strong><p>Transformer le projet ponctuel en retainer : bonus d'adhésion supérieur au premier mois, remise contre engagement annuel, frais de setup (3-5× le mensuel) offerts contre engagement. SaaS : cycles de facturation de 4 semaines (+8,3 % de revenu annuel mécanique) et moyen de paiement de secours contre le churn involontaire.</p></li>
+    <li><strong>Empiler la monétisation plutôt que multiplier les produits</strong><p>« 100 façons de vendre le même produit, pas 100 produits » : déclinaisons, bundles (avec l'<i>Economist Play</i> : option médiane leurre au prix du bundle), parrainage type <i>Gift Card Play</i> (cartes à -90 % réservées aux filleuls).</p></li>
+    <li><strong>Piloter aux ratios, pas au chiffre d'affaires</strong><p>Suivre le LTGP (profit brut vie entière, pas le CA) et viser LTGP:CAC ≥ 3:1, avec un payback sous 30 jours. À défaut, le modèle ne permet pas de « racheter » de la croissance publicitaire rentable.</p></li>
+    <li><strong>Déployer par étapes</strong><p>Une offre perfectionnée à la fois — attraction d'abord (elle finance la suite), upsells/downsells ensuite, continuity en dernier. Ne jamais lancer le modèle complet d'un coup.</p></li>
+  </ol>
+</section>
+
+<section id="critique">
+  <h2><span class="num">08 · Regard critique</span>À lire avec recul</h2>
+  <div class="grid2">
+    <div class="card"><h3>Preuves anecdotiques, biais de survie</h3><p>Comme pour les deux tomes précédents, tous les cas (salles de sport, suppléments, Skool) viennent du portefeuille d'Hormozi, sans validation indépendante. « Ils ont survécu assez longtemps pour gagner ; la plupart des gens, non. » (Medium, janvier 2026)</p></div>
+    <div class="card"><h3>Le lancement est lui-même une démo</h3><p>Le style « bro-marketing » (records Guinness, lancements à neuf chiffres) fait partie du dispositif : le lancement du livre est une démonstration de money model autant qu'un événement éditorial. Chiffres de ventes auto-déclarés.</p></div>
+    <div class="card"><h3>Aucune recension presse établie trouvée</h3><p>Aucune critique dans Forbes, Inc. ou Entrepreneur n'a été repérée lors de la recherche : la couverture vient de l'écosystème (affiliés, blogs business, YouTube).</p></div>
+    <div class="card"><h3>Public visé : entreprises existantes</h3><p>Les lecteurs notent un tome plus exigeant que les précédents, qui suppose une entreprise avec offres et revenus. Le « $100M » du titre n'est ni une promesse ni une garantie ; l'exécution (marché, concurrence, qualité de livraison) reste déterminante.</p></div>
+  </div>
+</section>
+
+<section id="sources">
+  <h2><span class="num">Sources</span>Provenance du résumé</h2>
+  <p class="sub">Recherche du 9 octobre 2026, niveau de vérification « index uniquement » : aucune page consultée en navigateur live, faits recoupés entre sources convergentes. Les notes communautaires GitHub citent les sections du livre avec un haut niveau de confiance, mais restent des sources secondaires.</p>
+  <ul class="src">
+    <li>Amazon — fiche produit (description éditeur) : <a href="https://www.amazon.com/dp/B0FMXTZ4MH/ref=cm_sw_r_as_gl_api_gl_i_W4EYWDTNQ6XK2Z0YV2RK">amazon.com/dp/B0FMXTZ4MH</a></li>
+    <li>Softalk Online — review détaillée : <a href="https://softalkonline.com/100m-money-models-review/">softalkonline.com/100m-money-models-review</a></li>
+    <li>Brecken Business Solutions — blog : <a href="https://www.breckenbusinesssolutions.com/blog/new-book-we-love-100m-money-models-by-alex-hormozi">breckenbusinesssolutions.com</a></li>
+    <li>Tamzidulhaque.com — résumé : <a href="https://tamzidulhaque.com/100m-money-models-summary-alex-hormozi/">tamzidulhaque.com/100m-money-models-summary-alex-hormozi</a></li>
+    <li>Medium (ParJoy) — synthèse : <a href="https://medium.com/@younesbouida225/100m-money-models-the-fastest-selling-business-playbook-you-need-in-2025-94cd67cc864b">medium.com/@younesbouida225</a></li>
+    <li>YouTube — stats de lancement : <a href="https://www.youtube.com/watch?v=8lSEICpqfpk">youtube.com/watch?v=8lSEICpqfpk</a> · breakdown du funnel : <a href="https://www.youtube.com/watch?v=G-kQM3WCGy8">youtube.com/watch?v=G-kQM3WCGy8</a></li>
+    <li>Medium (Destiny S. Harris) — critique du biais de survie : <a href="https://medium.com/financial-strategy/is-the-hormozi-method-to-investing-actually-smart-or-just-survivorship-bias-312c5ccc58f1">medium.com/financial-strategy</a></li>
+    <li>Goodreads — avis lecteurs : <a href="https://www.goodreads.com/book/show/240367486-100m-money-models">goodreads.com/book/show/240367486</a></li>
+    <li>Acquisition.com — formation officielle : <a href="https://www.acquisition.com/training/money">acquisition.com/training/money</a></li>
+  </ul>
+  <p class="note">Question ouverte : aucune recension dans la presse économique traditionnelle n'a été trouvée ; les chiffres de ventes et records restent auto-déclarés par l'auteur et l'éditeur.</p>
+</section>
+
+</div>
+<script>
+(function(){
+  var fmt=function(n){return n.toLocaleString('fr-CA',{maximumFractionDigits:1});};
+  // --- Calculateur CFA ---
+  var cac=document.getElementById('cac'),p30=document.getElementById('p30'),ltgp=document.getElementById('ltgp');
+  function calc(){
+    var c=parseFloat(cac.value)||0, p=parseFloat(p30.value)||0, l=parseFloat(ltgp.value)||0;
+    var mult=c>0?p/c:0, ratio=c>0?l/c:0;
+    document.getElementById('r-multiple').textContent=c>0?fmt(mult)+'×':'—';
+    document.getElementById('r-ratio').textContent=c>0?fmt(ratio)+' : 1':'—';
+    document.getElementById('r-clients').textContent=c>0?Math.max(0,Math.floor(p/c)-1)+' autres':'—';
+    var v=document.getElementById('verdict');
+    if(c<=0){v.className='verdict warn';v.textContent='Entre un CAC supérieur à 0 pour appliquer le test.';return;}
+    if(mult>=2){v.className='verdict good';v.innerHTML='<strong>Modèle $100M.</strong> Ton profit à 30 jours ('+fmt(mult)+'× le CAC) paie le client lui-même <em>et</em> finance au moins deux autres acquisitions. Le cash n\u2019est plus ton goulot : tu peux surenchérir sur la publicité.';}
+    else if(mult>1){v.className='verdict warn';v.innerHTML='<strong>Bon modèle, pas encore $100M.</strong> Le client se paie lui-même sous 30 jours ('+fmt(mult)+'× le CAC), mais ne finance pas encore deux autres clients. Vise la règle 2× : il manque '+(fmt((2*c-p)))+' $ de profit brut à 30 jours par client.';}
+    else{v.className='verdict bad';v.innerHTML='<strong>Le modèle ne s\u2019autofinance pas.</strong> À 30 jours, le client ne couvre même pas son coût d\u2019acquisition ('+fmt(mult)+'× le CAC). Selon Hormozi, c\u2019est la spirale : on coupe la pub, on brûle du cash. Travaille d\u2019abord l\u2019offre d\u2019attraction rentable ou un upsell.';}
+  }
+  [cac,p30,ltgp].forEach(function(el){el.addEventListener('input',calc);});
+  calc();
+
+  // --- Explorateur des offres ---
+  var DATA={
+    attraction:{problem:'Problème résolu : « Je n\u2019ai pas les moyens d\u2019acquérir des clients. » L\u2019offre d\u2019attraction doit être rentable en elle-même — ne jamais perdre d\u2019argent pour « acheter » des clients. Tout se place sur un continuum gratuit → plein tarif.',items:[
+      ['Win Your Money Back','Atteindre l\u2019objectif = remboursé. Le risque perçu tombe, l\u2019engagement monte.'],
+      ['Giveaways','Concours et cadeaux qui transforment l\u2019attention en prospects qualifiés.'],
+      ['Decoy Offer','Une offre leurre qui rend l\u2019offre cœur évidente par contraste.'],
+      ['Buy X Get Y Free','Le « gratuit » porte sur l\u2019ajout, jamais sur le cœur de l\u2019offre.'],
+      ['Pay Less Now or Pay More Later','Période gratuite ou réduite, puis plein tarif — avec option immédiate remisée + bonus.'],
+      ['Free Goodwill Offer','Offre de bonne volonté gratuite qui crée la réciprocité (citée dans certaines synthèses).']]},
+    upsell:{problem:'Problème résolu : « Ils achètent mais ne dépensent pas plus. » L\u2019upsell résout le nouveau problème créé par l\u2019achat précédent.',items:[
+      ['The Classic Upsell','L\u2019ajout direct qui complète l\u2019achat initial.'],
+      ['Menu Upsell','Quatre tactiques : unsell l\u2019inutile, prescrire l\u2019utile, choix A/B, closer avec la carte déjà enregistrée. Inclut l\u2019Economist Play (option médiane leurre au prix du bundle).'],
+      ['Anchor Upsell','Présenter d\u2019abord une option 5 à 10× plus chère : l\u2019offre cœur paraît raisonnable.'],
+      ['Rollover Upsell','Créditer les achats passés vers l\u2019offre supérieure suivante.']]},
+    downsell:{problem:'Problème résolu : « Ils disent non et partent. » Règles strictes : un downsell est un échange, pas une ristourne — on change comment ils paient ou ce qu\u2019ils reçoivent, jamais le même produit moins cher.',items:[
+      ['Payment Plan Downsells','Même prix total, échelonné : on change comment ils paient.'],
+      ['Trial With Penalty','Essai conditionnel avec pénalité : le risque est partagé, pas offert.'],
+      ['Feature Downsells','Version allégée du produit : on change ce qu\u2019ils reçoivent.']]},
+    continuity:{problem:'Problème résolu : « J\u2019ai besoin de revenus prévisibles. » Vendre une fois, être payé en continu.',items:[
+      ['Continuity Bonus Offers','Bonus d\u2019inscription valant plus que le premier paiement.'],
+      ['Continuity Discount Offers','Temps ou produit gratuit contre engagement long (appliqué de 4 façons).'],
+      ['Waived Fee Offer','Gros frais de démarrage (3-5× le mensuel) annulés contre engagement à terme.'],
+      ['Tactiques du livre','Facturation en cycles de 4 semaines et capture d\u2019un moyen de paiement de secours contre le churn involontaire.']]}
+  };
+  var grid=document.getElementById('offer-grid'), prob=document.getElementById('offer-problem');
+  function show(key){
+    var d=DATA[key]; prob.textContent=d.problem; grid.innerHTML='';
+    d.items.forEach(function(it){
+      var div=document.createElement('div'); div.className='offer';
+      var h=document.createElement('h4'); h.textContent=it[0];
+      var p=document.createElement('p'); p.textContent=it[1];
+      div.appendChild(h); div.appendChild(p); grid.appendChild(div);
+    });
+    var btns=document.querySelectorAll('.tabs button');
+    for(var i=0;i<btns.length;i++){btns[i].setAttribute('aria-selected',btns[i].getAttribute('data-t')===key?'true':'false');}
+  }
+  var tabs=document.querySelectorAll('.tabs button');
+  for(var i=0;i<tabs.length;i++){tabs[i].addEventListener('click',function(){show(this.getAttribute('data-t'));});}
+  show('attraction');
+
+  // --- Ascension ---
+  var sv={val:document.getElementById('s-val'),vol:document.getElementById('s-vol'),vit:document.getElementById('s-vit')};
+  function asc(){
+    var a=parseFloat(sv.val.value),b=parseFloat(sv.vol.value),c=parseFloat(sv.vit.value);
+    document.getElementById('v-val').textContent=a; document.getElementById('v-vol').textContent=b; document.getElementById('v-vit').textContent=c;
+    document.getElementById('asc-out').textContent=fmt(a*b*c)+'×';
+  }
+  [sv.val,sv.vol,sv.vit].forEach(function(el){el.addEventListener('input',asc);});
+  asc();
+})();
+</script>
+</body>
+</html>

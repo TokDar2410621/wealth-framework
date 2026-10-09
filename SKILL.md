@@ -1,12 +1,12 @@
 ---
 name: wealth-framework
-description: Business decision filter built from Hormozi ($100M Offers, $100M Leads), Thiel (Zero to One), DeMarco (The Millionaire Fastlane, CENTS), Greene (The 48 Laws of Power, The Laws of Human Nature), Kawasaki (The Art of the Start), Dalio (Principles), field-tested selling and execution laws, and founders' decision frameworks (Bezos, Paul Graham, Taleb, Musk). Use in EVERY business discussion - a business idea, an offer, a price, a choice between projects, an opportunity, a side hustle, prospecting, sales, pricing, first customers, first $1,000, "should I launch X", "is it worth it". Also in French - idee de business, offre, prix, tarif, vendre, clients, prospection, projet, rentable, lancer, ca vaut le coup. When a decision is at stake, returns a go / go with conditions / no-go verdict with sourced, evidence-graded laws and the cheapest market test; otherwise adds at most three one-line insights, or stays silent. Always answers in the user's language.
+description: Business decision filter built from Hormozi ($100M Offers, $100M Leads, $100M Money Models), Thiel (Zero to One), DeMarco (The Millionaire Fastlane, CENTS), Greene (The 48 Laws of Power, The Laws of Human Nature), Kawasaki (The Art of the Start), Dalio (Principles), field-tested selling and execution laws, and founders' decision frameworks (Bezos, Paul Graham, Taleb, Musk). Use in EVERY business discussion - a business idea, an offer, a price, a choice between projects, an opportunity, a side hustle, prospecting, sales, pricing, monetization, upsells, recurring revenue, first customers, first $1,000, "should I launch X", "is it worth it". Also in French - idee de business, offre, prix, tarif, vendre, clients, prospection, projet, rentable, lancer, ca vaut le coup. When a decision is at stake, returns a go / go with conditions / no-go verdict with sourced, evidence-graded laws and the cheapest market test; otherwise adds at most three one-line insights, or stays silent. Always answers in the user's language.
 ---
 
 # Wealth Framework
 
 A decision filter for making money. It holds an idea, an offer or a choice up to the laws of
-eight books, field-tested laws and the decision frameworks of great founders, then ends with the
+nine books, field-tested laws and the decision frameworks of great founders, then ends with the
 cheapest test that lets the market decide. Every law carries its source and its evidence level.
 
 ## Step 0: freshness, once per conversation
@@ -96,6 +96,7 @@ user's language.
 | `cheatsheet.md` | all | Start here: decision rules by situation, thresholds, warning phrases |
 | `sources/hormozi-100m-offers.md` | HOR | Offer, price, value, guarantee, bonuses, scarcity |
 | `sources/hormozi-100m-leads.md` | LDS | Getting leads: channels, Rule of 100, lead magnets |
+| `sources/hormozi-100m-money-models.md` | MNY | Monetization: offer sequencing, 30-day rule, upsells, downsells, continuity |
 | `sources/thiel-zero-to-one.md` | THI | Defensibility, competition, monopoly, distribution, secrets |
 | `sources/demarco-millionaire-fastlane.md` | DEM | CENTS: is this a real business or a job in disguise? |
 | `sources/kawasaki-art-of-the-start.md` | KAW | Meaning, market size, pitch, positioning copy |
