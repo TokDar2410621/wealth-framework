@@ -92,7 +92,9 @@ user's language.
 ## Agent-led offer scoring
 
 The scripts do not score; they brief. When the user wants an offer scored
-("grill my offer", "score this"), run the matching script and follow the brief it prints:
+("grill my offer", "score this"), collect the facts with the interactive form
+(`artifacts/offer-griller.html`, also available as a hosted page) or by running the
+matching script, then follow the brief it produces:
 
 - `scripts/value_equation.py`: interviews the user about the offer (or takes the facts
   as arguments), then prints an agent brief. You score each Value Equation driver 1-10

@@ -1,0 +1,1060 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>Offer Griller — Décris ton offre, l'agent la grille</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,400;0,600;0,800;0,900;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #faf6ef;
+        --surface: #fffdf8;
+        --surface-2: #f6efe1;
+        --ink: #1d1710;
+        --ink-soft: #57493a;
+        --ink-faint: #8a7a66;
+        --line: #e2d7c3;
+        --line-strong: #c9b998;
+        --ember: #d9430d;
+        --ember-strong: #b93305;
+        --amber: #b97a08;
+        --good: #5f7d04;
+        --bad: #c22e0a;
+        --track: #e7dcc6;
+        --input-bg: #fffdf8;
+        --shadow: 0 1px 2px rgba(60, 40, 10, .06), 0 8px 24px rgba(60, 40, 10, .07);
+        --radius: 6px;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #14100c;
+          --surface: #1e1812;
+          --surface-2: #262019;
+          --ink: #f4ede1;
+          --ink-soft: #c9bba7;
+          --ink-faint: #8f8069;
+          --line: #38301f;
+          --line-strong: #57492f;
+          --ember: #ff6a2a;
+          --ember-strong: #ff8552;
+          --amber: #ffa02e;
+          --good: #a8c81f;
+          --bad: #ff5a26;
+          --track: #39301f;
+          --input-bg: #171310;
+          --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 28px rgba(0,0,0,.45);
+        }
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "Libre Franklin", "Helvetica Neue", Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ---------- Top bar ---------- */
+      .topbar { border-bottom: 3px solid var(--ink); }
+      .topbar-inner {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 18px 20px 14px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 8px 18px;
+      }
+      .wordmark {
+        font-weight: 900;
+        font-size: 26px;
+        letter-spacing: -.01em;
+        text-transform: uppercase;
+        line-height: 1;
+      }
+      .wordmark .flame-dot { color: var(--ember); }
+      .tagline { color: var(--ink-soft); font-size: 15px; max-width: 600px; margin: 0; }
+      .method-tag {
+        margin-left: auto;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11.5px;
+        color: var(--ink-faint);
+        border: 1px solid var(--line-strong);
+        padding: 4px 8px;
+        border-radius: 999px;
+        white-space: nowrap;
+      }
+
+      /* ---------- Layout ---------- */
+      .layout {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 22px 20px 64px;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 420px;
+        gap: 22px;
+        align-items: start;
+      }
+      @media (max-width: 980px) { .layout { grid-template-columns: minmax(0, 1fr); } }
+
+      /* ---------- Form cards ---------- */
+      .card {
+        background: var(--surface);
+        border: 1.5px solid var(--ink);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 22px 22px 24px;
+        margin-bottom: 22px;
+      }
+      .card-head {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 12px;
+        margin-bottom: 18px;
+      }
+      .step-num {
+        font-family: "IBM Plex Mono", monospace;
+        font-weight: 600;
+        font-size: 13px;
+        color: #fff;
+        background: var(--ember);
+        border-radius: 4px;
+        padding: 3px 8px;
+        flex: none;
+        margin-top: 2px;
+      }
+      @media (prefers-color-scheme: dark) { .step-num { color: #1d1206; } }
+      .card h2 { font-size: 21px; font-weight: 800; margin: 0; letter-spacing: -.01em; line-height: 1.15; }
+      .card-sub { color: var(--ink-soft); font-size: 14px; margin: 3px 0 0; }
+
+      .field { margin-bottom: 16px; }
+      .field:last-child { margin-bottom: 0; }
+      label, .field-label { display: block; font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+      .hint { font-weight: 400; color: var(--ink-faint); font-size: 12.5px; margin-top: 4px; }
+      input[type="text"], input[type="number"], textarea, select {
+        width: 100%;
+        background: var(--input-bg);
+        color: var(--ink);
+        border: 1px solid var(--line-strong);
+        border-radius: var(--radius);
+        padding: 10px 12px;
+        font: inherit;
+        font-size: 15px;
+      }
+      textarea { min-height: 74px; resize: vertical; }
+      input:focus-visible, textarea:focus-visible, select:focus-visible, button:focus-visible, input[type="range"]:focus-visible {
+        outline: 2.5px solid var(--ember);
+        outline-offset: 2px;
+      }
+      .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+      .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+      @media (max-width: 640px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+      .money-input { position: relative; }
+      .money-input span {
+        position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+        color: var(--ink-faint); font-family: "IBM Plex Mono", monospace; font-size: 13px;
+        pointer-events: none;
+      }
+
+      /* Sliders (auto-évaluation) */
+      .lever {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 14px 16px 12px;
+        margin-bottom: 12px;
+      }
+      .lever-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+      .lever-name { font-weight: 800; font-size: 15.5px; }
+      .lever-dir {
+        font-family: "IBM Plex Mono", monospace; font-size: 11px;
+        color: var(--ink-faint); text-transform: uppercase; letter-spacing: .04em;
+      }
+      .lever-val {
+        font-family: "IBM Plex Mono", monospace;
+        font-weight: 600; font-size: 22px; color: var(--ember);
+        min-width: 52px; text-align: right;
+      }
+      .lever-val small { font-size: 13px; opacity: .6; }
+      .lever-desc { color: var(--ink-soft); font-size: 13.5px; margin: 2px 0 8px; }
+      .lever-anchor { font-size: 13px; color: var(--ink-soft); min-height: 20px; margin-top: 6px; }
+      input[type="range"] {
+        width: 100%;
+        appearance: none; -webkit-appearance: none;
+        height: 8px; border-radius: 99px;
+        background: var(--track);
+        margin: 6px 0 2px;
+        cursor: pointer;
+      }
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 24px; height: 24px; border-radius: 50%;
+        background: var(--surface);
+        border: 3px solid var(--ember);
+        box-shadow: 0 1px 4px rgba(0,0,0,.25);
+        cursor: grab;
+      }
+      input[type="range"]::-moz-range-thumb {
+        width: 20px; height: 20px; border-radius: 50%;
+        background: var(--surface);
+        border: 3px solid var(--ember);
+        box-shadow: 0 1px 4px rgba(0,0,0,.25);
+        cursor: grab;
+      }
+      .scale-labels {
+        display: flex; justify-content: space-between;
+        font-size: 11px; color: var(--ink-faint);
+        font-family: "IBM Plex Mono", monospace;
+      }
+
+      /* Segmented controls */
+      .seg { display: flex; flex-wrap: wrap; gap: 8px; }
+      .seg button {
+        font: inherit; font-size: 13.5px; font-weight: 600;
+        background: var(--surface-2);
+        color: var(--ink-soft);
+        border: 1.5px solid var(--line-strong);
+        border-radius: 999px;
+        padding: 7px 13px;
+        cursor: pointer;
+        transition: border-color .12s, background .12s, color .12s;
+      }
+      .seg button:hover { border-color: var(--ink-soft); color: var(--ink); }
+      .seg button.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+      .seg-label { font-weight: 600; font-size: 14px; margin-bottom: 7px; display: block; }
+
+      .examples-row { display: flex; flex-wrap: wrap; gap: 9px; }
+      .btn-example {
+        font: inherit; font-size: 13.5px; font-weight: 600;
+        background: var(--surface-2); color: var(--ink);
+        border: 1.5px solid var(--line-strong);
+        border-radius: 999px; padding: 8px 14px; cursor: pointer;
+      }
+      .btn-example:hover { border-color: var(--ink); }
+
+      .raw-figures {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 13px;
+        background: var(--surface-2);
+        border: 1px dashed var(--line-strong);
+        border-radius: var(--radius);
+        padding: 10px 14px;
+        margin-top: 16px;
+        overflow-wrap: break-word;
+      }
+      .raw-figures .rf-title { font-weight: 600; color: var(--ink-soft); display: block; margin-bottom: 3px; }
+
+      /* ---------- Brief panel ---------- */
+      .brief-panel {
+        position: sticky;
+        top: 16px;
+        background: var(--ink);
+        color: var(--bg);
+        border-radius: 8px;
+        padding: 22px 22px 20px;
+        box-shadow: var(--shadow);
+      }
+      @media (prefers-color-scheme: dark) { .brief-panel { border: 1.5px solid var(--line-strong); } }
+      @media (max-width: 980px) { .brief-panel { position: static; } }
+      .panel-kicker {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase;
+        opacity: .65; margin: 0 0 6px;
+      }
+      .brief-title { font-size: 23px; font-weight: 900; line-height: 1.15; letter-spacing: -.01em; margin: 0 0 8px; }
+      .brief-sub { font-size: 14px; opacity: .85; margin: 0 0 16px; }
+      .brief-sub b { color: var(--gold, #ffc53d); }
+
+      .progress-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 6px; }
+      .progress-label { font-weight: 700; font-size: 14px; }
+      .progress-pct { font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 15px; }
+      .bar { height: 9px; border-radius: 99px; background: rgba(127,127,127,.28); overflow: hidden; }
+      .bar > div { height: 100%; border-radius: 99px; background: var(--ember); transition: width .45s cubic-bezier(.2,.8,.25,1); }
+
+      .checklist { list-style: none; margin: 16px 0 4px; padding: 0; }
+      .checklist li {
+        display: flex; gap: 10px; align-items: flex-start;
+        padding: 8px 0;
+        border-top: 1px solid rgba(127,127,127,.25);
+        font-size: 14px;
+      }
+      .checklist li:first-child { border-top: none; }
+      .ck-mark {
+        flex: none; width: 21px; height: 21px; border-radius: 50%;
+        border: 2px solid rgba(127,127,127,.55);
+        display: inline-flex; align-items: center; justify-content: center;
+        font-size: 12px; font-weight: 700; line-height: 1; margin-top: 1px;
+      }
+      .checklist li.done .ck-mark { background: var(--good); border-color: var(--good); color: #fff; }
+      @media (prefers-color-scheme: dark) { .checklist li.done .ck-mark { color: #141a02; } }
+      .checklist .ck-name { font-weight: 600; }
+      .checklist .ck-state { opacity: .65; font-size: 12.5px; display: block; }
+
+      .panel-actions { display: flex; flex-direction: column; gap: 9px; margin-top: 18px; }
+      .btn {
+        font: inherit; font-weight: 800; font-size: 15px;
+        border-radius: var(--radius);
+        padding: 13px 16px;
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: transform .08s, background .15s, border-color .15s, opacity .15s;
+      }
+      .btn:active { transform: translateY(1px); }
+      .btn-primary { background: var(--ember); color: #fff; }
+      .btn-primary:hover { background: var(--ember-strong); }
+      @media (prefers-color-scheme: dark) { .btn-primary { color: #1d1206; } }
+      .btn-primary:disabled { opacity: .45; cursor: not-allowed; }
+      .btn-ghost {
+        background: transparent; color: inherit;
+        border-color: rgba(127,127,127,.45);
+        font-weight: 600; font-size: 14px;
+      }
+      .btn-ghost:hover { border-color: currentColor; }
+      .btn-ghost:disabled { opacity: .45; cursor: not-allowed; }
+      .next-step { font-size: 13px; opacity: .75; margin: 14px 0 0; }
+
+      .brief-preview-wrap { margin-top: 18px; }
+      .brief-preview-wrap summary {
+        cursor: pointer; font-weight: 700; font-size: 14px;
+        padding: 6px 0;
+      }
+      .brief-preview-wrap summary:focus-visible { outline: 2.5px solid var(--ember); outline-offset: 2px; }
+      #brief-preview {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11.5px; line-height: 1.55;
+        background: rgba(127,127,127,.12);
+        border: 1px solid rgba(127,127,127,.3);
+        border-radius: var(--radius);
+        padding: 12px 14px;
+        max-height: 320px;
+        overflow: auto;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+        margin: 8px 0 0;
+      }
+
+      footer {
+        max-width: 1240px; margin: 0 auto;
+        padding: 0 20px 40px;
+        color: var(--ink-faint); font-size: 13px;
+      }
+
+      /* Mobile sticky brief bar */
+      .mobile-bar { display: none; }
+      @media (max-width: 980px) {
+        .mobile-bar {
+          display: flex; align-items: center; gap: 12px;
+          position: sticky; bottom: 0; z-index: 20;
+          background: var(--ink); color: var(--bg);
+          padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+          border-top: 2px solid var(--ember);
+        }
+        .mobile-bar .mb-pct {
+          font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 24px; line-height: 1;
+        }
+        .mobile-bar .mb-text { font-weight: 700; font-size: 14px; line-height: 1.2; }
+        .mobile-bar .mb-sub { font-size: 11.5px; opacity: .7; font-weight: 400; }
+        .mobile-bar a {
+          margin-left: auto; flex: none;
+          color: inherit; font-weight: 700; font-size: 13.5px;
+          border: 1.5px solid rgba(127,127,127,.5); border-radius: 999px;
+          padding: 7px 12px; text-decoration: none;
+        }
+      }
+
+      .toast {
+        position: fixed; left: 50%; bottom: 26px; transform: translate(-50%, 20px);
+        background: var(--ink); color: var(--bg);
+        font-weight: 600; font-size: 14.5px;
+        padding: 12px 20px; border-radius: 999px;
+        box-shadow: 0 10px 30px rgba(0,0,0,.35);
+        opacity: 0; pointer-events: none;
+        transition: opacity .25s, transform .25s;
+        z-index: 50; max-width: calc(100vw - 40px); text-align: center;
+      }
+      .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        * { transition: none !important; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="wordmark">Offer&nbsp;Griller<span class="flame-dot">.</span></div>
+        <p class="tagline">Décris ton offre ici. L'artefact pose les questions et assemble un brief structuré — le scoring, le score global et le grill, c'est l'agent qui les fait, skill wealth-framework chargé.</p>
+        <span class="method-tag">$100M Offers × $100M Money Models</span>
+      </div>
+    </header>
+
+    <main class="layout">
+      <!-- ================= FORM ================= -->
+      <div>
+        <form id="offerForm" autocomplete="off">
+
+          <!-- 1. L'offre -->
+          <section class="card" aria-labelledby="h-offer">
+            <div class="card-head">
+              <span class="step-num">01</span>
+              <div>
+                <h2 id="h-offer">L'offre, en clair</h2>
+                <p class="card-sub">Ce que tu vends, à qui, et le résultat promis. Sois précis : « aider les PME » n'est pas une promesse, et l'agent te le dira.</p>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="f-name">Nom de l'offre</label>
+              <input type="text" id="f-name" placeholder="Ex. : Machine à clients — PME services, 90 jours" />
+              <p class="hint">Un bon nom contient le résultat, l'avatar et le délai (formule M-A-G-I-C).</p>
+            </div>
+
+            <div class="grid-2">
+              <div class="field">
+                <label for="f-avatar">Pour qui, exactement ?</label>
+                <input type="text" id="f-avatar" placeholder="Ex. : cliniques dentaires de 3+ fauteuils au Québec" />
+              </div>
+              <div class="field">
+                <label for="f-deliverable">Livrable principal</label>
+                <input type="text" id="f-deliverable" placeholder="Ex. : système d'acquisition installé + agent web" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="f-promise">La promesse (le résultat rêvé vendu)</label>
+              <textarea id="f-promise" placeholder="Ex. : 20 demandes de devis qualifiées par mois, sans que le propriétaire touche à un ordinateur."></textarea>
+            </div>
+
+            <div class="grid-2">
+              <div class="field">
+                <label for="f-price">Prix de l'offre principale</label>
+                <div class="money-input">
+                  <input type="number" id="f-price" min="0" step="any" placeholder="ex. 990" />
+                  <span>$</span>
+                </div>
+              </div>
+              <div class="field">
+                <label for="f-ticket-kind">Ce prix est…</label>
+                <select id="f-ticket-kind">
+                  <option value="one-shot">Un paiement unique</option>
+                  <option value="install-monthly">Installation + mensuel</option>
+                  <option value="monthly">Un abonnement mensuel</option>
+                  <option value="revshare">Un % des résultats / revenus</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <span class="seg-label" id="lbl-examples">Pas d'offre sous la main ? Charge un exemple fictif :</span>
+              <div class="examples-row" role="group" aria-labelledby="lbl-examples">
+                <button type="button" class="btn-example" id="btn-ex-weak">Exemple : offre faible</button>
+                <button type="button" class="btn-example" id="btn-ex-strong">Exemple : offre Grand Slam</button>
+                <button type="button" class="btn-example" id="btn-reset">Tout effacer</button>
+              </div>
+            </div>
+          </section>
+
+          <!-- 2. Auto-évaluation des leviers -->
+          <section class="card" aria-labelledby="h-value">
+            <div class="card-head">
+              <span class="step-num">02</span>
+              <div>
+                <h2 id="h-value">Ton auto-évaluation des 4 leviers</h2>
+                <p class="card-sub">L'équation de la valeur : (Résultat rêvé × Probabilité perçue) ÷ (Délai × Effort). Ces notes sont <strong>tes</strong> réponses — elles partent dans le brief, et l'agent les contestera avant de scorer. Te gonfler ici ne trompe que toi.</p>
+              </div>
+            </div>
+
+            <div class="lever">
+              <div class="lever-top">
+                <span class="lever-name">Résultat rêvé</span>
+                <span class="lever-val" id="v-dream">5<small>/10</small></span>
+              </div>
+              <p class="lever-desc">À quel point le résultat promis est désirable, précis et transformateur pour ton avatar ?</p>
+              <input type="range" id="s-dream" min="0" max="10" step="1" value="5" aria-label="Résultat rêvé, de 0 à 10" />
+              <div class="scale-labels"><span>0 — vague, petit</span><span>10 — le rêve, chiffré</span></div>
+              <p class="lever-anchor" id="a-dream"></p>
+            </div>
+
+            <div class="lever">
+              <div class="lever-top">
+                <span class="lever-name">Probabilité perçue de réussite</span>
+                <span class="lever-val" id="v-likelihood">5<small>/10</small></span>
+              </div>
+              <p class="lever-desc">Ton prospect croit-il que ça va marcher <em>pour lui</em> ? Preuves, études de cas, mécanisme clair, garantie.</p>
+              <input type="range" id="s-likelihood" min="0" max="10" step="1" value="5" aria-label="Probabilité perçue, de 0 à 10" />
+              <div class="scale-labels"><span>0 — « fais-moi confiance »</span><span>10 — prouvé, garanti</span></div>
+              <p class="lever-anchor" id="a-likelihood"></p>
+            </div>
+
+            <div class="lever">
+              <div class="lever-top">
+                <span class="lever-name">Délai avant le résultat <span class="lever-dir">↓ plus c'est bas, mieux c'est</span></span>
+                <span class="lever-val" id="v-time">5<small>/10</small></span>
+              </div>
+              <p class="lever-desc">Combien de temps entre l'achat et le premier résultat visible, tangible ?</p>
+              <input type="range" id="s-time" min="0" max="10" step="1" value="5" aria-label="Délai avant résultat, de 0 à 10" />
+              <div class="scale-labels"><span>0 — résultat immédiat</span><span>10 — des mois d'attente</span></div>
+              <p class="lever-anchor" id="a-time"></p>
+            </div>
+
+            <div class="lever">
+              <div class="lever-top">
+                <span class="lever-name">Effort &amp; sacrifice du client <span class="lever-dir">↓ plus c'est bas, mieux c'est</span></span>
+                <span class="lever-val" id="v-effort">5<small>/10</small></span>
+              </div>
+              <p class="lever-desc">Qu'est-ce que le client doit faire, apprendre, subir lui-même pour obtenir le résultat ?</p>
+              <input type="range" id="s-effort" min="0" max="10" step="1" value="5" aria-label="Effort du client, de 0 à 10" />
+              <div class="scale-labels"><span>0 — on fait tout pour lui</span><span>10 — il fait tout, c'est dur</span></div>
+              <p class="lever-anchor" id="a-effort"></p>
+            </div>
+          </section>
+
+          <!-- 3. Arsenal -->
+          <section class="card" aria-labelledby="h-arsenal">
+            <div class="card-head">
+              <span class="step-num">03</span>
+              <div>
+                <h2 id="h-arsenal">Ce que contient ton offre</h2>
+                <p class="card-sub">Garantie, bonus, preuves, rareté, nom : réponds ce qui est vrai aujourd'hui, pas ce que tu comptes ajouter un jour. L'agent scorera l'écart.</p>
+              </div>
+            </div>
+
+            <div class="field">
+              <span class="seg-label" id="lbl-guarantee">Garantie</span>
+              <div class="seg" role="group" aria-labelledby="lbl-guarantee" data-seg="guarantee">
+                <button type="button" data-val="0">Aucune</button>
+                <button type="button" data-val="1">Remboursement simple</button>
+                <button type="button" data-val="2">Conditionnelle (si le client fait sa part)</button>
+                <button type="button" data-val="3">Inconditionnelle : résultat ou remboursé</button>
+              </div>
+            </div>
+
+            <div class="field">
+              <span class="seg-label" id="lbl-bonus">Bonus</span>
+              <div class="seg" role="group" aria-labelledby="lbl-bonus" data-seg="bonus">
+                <button type="button" data-val="0">Aucun</button>
+                <button type="button" data-val="1">1–2 bonus génériques</button>
+                <button type="button" data-val="2">3+ bonus nommés, chacun tue un obstacle</button>
+              </div>
+            </div>
+
+            <div class="field">
+              <span class="seg-label" id="lbl-proof">Preuves</span>
+              <div class="seg" role="group" aria-labelledby="lbl-proof" data-seg="proof">
+                <button type="button" data-val="0">Aucune</button>
+                <button type="button" data-val="1">Témoignages</button>
+                <button type="button" data-val="2">Études de cas chiffrées</button>
+                <button type="button" data-val="3">Résultats clients documentés + chiffres vérifiables</button>
+              </div>
+            </div>
+
+            <div class="field">
+              <span class="seg-label" id="lbl-scarcity">Rareté / urgence</span>
+              <div class="seg" role="group" aria-labelledby="lbl-scarcity" data-seg="scarcity">
+                <button type="button" data-val="0">Aucune</button>
+                <button type="button" data-val="1">Artificielle (« plus que 3 places ! »… toujours)</button>
+                <button type="button" data-val="2">Réelle (cohorte, capacité, date butoir vraie)</button>
+              </div>
+            </div>
+
+            <div class="field" style="margin-bottom:0">
+              <span class="seg-label" id="lbl-naming">Le nom de l'offre</span>
+              <div class="seg" role="group" aria-labelledby="lbl-naming" data-seg="naming">
+                <button type="button" data-val="0">Descriptif (« Programme X »)</button>
+                <button type="button" data-val="1">Bénéfice clair</button>
+                <button type="button" data-val="2">M-A-G-I-C : résultat + avatar + délai</button>
+              </div>
+            </div>
+          </section>
+
+          <!-- 4. Money model -->
+          <section class="card" aria-labelledby="h-money">
+            <div class="card-head">
+              <span class="step-num">04</span>
+              <div>
+                <h2 id="h-money">Les chiffres du money model</h2>
+                <p class="card-sub">Les nombres bruts que l'agent va passer à la moulinette : coût d'acquisition, cash jour 1, récurrent, durée de vie. Règle qu'il appliquera : un client doit rembourser son acquisition en moins de 30 jours, avec un ratio profit à vie / CAC d'au moins 3:1.</p>
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="field">
+                <label for="f-cac">Coût d'acquisition d'un client (CAC)</label>
+                <div class="money-input">
+                  <input type="number" id="f-cac" min="0" step="any" placeholder="ex. 300" />
+                  <span>$</span>
+                </div>
+                <p class="hint">Pub, temps de vente, outils — tout ce qu'un client te coûte avant de signer.</p>
+              </div>
+              <div class="field">
+                <label for="f-margin">Marge brute</label>
+                <div class="money-input">
+                  <input type="number" id="f-margin" min="0" max="100" step="any" placeholder="ex. 80" />
+                  <span>%</span>
+                </div>
+                <p class="hint">Après coûts directs de livraison (sous-traitance, API, hébergement…).</p>
+              </div>
+            </div>
+
+            <div class="grid-3">
+              <div class="field">
+                <label for="f-upfront">Cash encaissé jour 1 / client</label>
+                <div class="money-input">
+                  <input type="number" id="f-upfront" min="0" step="any" placeholder="ex. 990" />
+                  <span>$</span>
+                </div>
+              </div>
+              <div class="field">
+                <label for="f-monthly">Récurrent / client / mois</label>
+                <div class="money-input">
+                  <input type="number" id="f-monthly" min="0" step="any" placeholder="ex. 149" />
+                  <span>$</span>
+                </div>
+              </div>
+              <div class="field">
+                <label for="f-months">Durée moyenne d'un client</label>
+                <div class="money-input">
+                  <input type="number" id="f-months" min="0" step="any" placeholder="ex. 9" />
+                  <span>mois</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="field">
+                <span class="seg-label" id="lbl-upsell">Upsell / downsell en place ?</span>
+                <div class="seg" role="group" aria-labelledby="lbl-upsell" data-seg="upsell">
+                  <button type="button" data-val="0">Non, un seul produit</button>
+                  <button type="button" data-val="1">Oui, une offre de suite claire</button>
+                </div>
+              </div>
+              <div class="field">
+                <span class="seg-label" id="lbl-attraction">Offre d'attraction (entrée à bas risque) ?</span>
+                <div class="seg" role="group" aria-labelledby="lbl-attraction" data-seg="attraction">
+                  <button type="button" data-val="0">Non, tout le monde entre par l'offre principale</button>
+                  <button type="button" data-val="1">Oui (audit, essai, produit d'appel…)</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="raw-figures" id="raw-figures" aria-live="polite"></div>
+          </section>
+        </form>
+      </div>
+
+      <!-- ================= BRIEF PANEL ================= -->
+      <aside class="brief-panel" id="panel">
+        <p class="panel-kicker">Brief pour l'agent</p>
+        <p class="brief-title" id="brief-title">Ton brief se remplit au fur et à mesure.</p>
+        <p class="brief-sub">Quand il est complet, donne-le à Claude avec le skill <b>wealth-framework</b> chargé : c'est lui qui scorera chaque levier, sortira le score global et te grillera.</p>
+
+        <div class="progress-row">
+          <span class="progress-label">Brief complété</span>
+          <span class="progress-pct" id="progress-pct">0 %</span>
+        </div>
+        <div class="bar"><div id="progress-bar" style="width:0%"></div></div>
+
+        <ul class="checklist" id="checklist">
+          <li id="ck-offer">
+            <span class="ck-mark" aria-hidden="true"></span>
+            <span><span class="ck-name">L'offre est décrite</span><span class="ck-state"></span></span>
+          </li>
+          <li id="ck-price">
+            <span class="ck-mark" aria-hidden="true"></span>
+            <span><span class="ck-name">Le prix est renseigné</span><span class="ck-state"></span></span>
+          </li>
+          <li id="ck-levers">
+            <span class="ck-mark" aria-hidden="true"></span>
+            <span><span class="ck-name">Les 4 leviers sont auto-évalués</span><span class="ck-state"></span></span>
+          </li>
+          <li id="ck-arsenal">
+            <span class="ck-mark" aria-hidden="true"></span>
+            <span><span class="ck-name">Le contenu de l'offre est déclaré</span><span class="ck-state">garantie, bonus, preuves, rareté, nom</span></span>
+          </li>
+          <li id="ck-money">
+            <span class="ck-mark" aria-hidden="true"></span>
+            <span><span class="ck-name">Les chiffres du money model sont là</span><span class="ck-state"></span></span>
+          </li>
+        </ul>
+
+        <div class="panel-actions">
+          <button type="button" class="btn btn-primary" id="btn-brief" disabled>Demander le scoring à l'agent — copier le brief</button>
+          <button type="button" class="btn btn-ghost" id="btn-download" disabled>Télécharger le brief (.md)</button>
+        </div>
+        <p class="next-step" id="next-step">Prochaine étape : décris ton offre dans le bloc 01 pour activer le brief.</p>
+
+        <details class="brief-preview-wrap">
+          <summary>Voir le brief assemblé</summary>
+          <pre id="brief-preview"></pre>
+        </details>
+      </aside>
+    </main>
+
+    <!-- Mobile brief bar -->
+    <div class="mobile-bar" aria-hidden="true">
+      <span class="mb-pct" id="mb-pct">0 %</span>
+      <span class="mb-text">du brief complété<br /><span class="mb-sub" id="mb-sub">le scoring se fait par l'agent</span></span>
+      <a href="#panel">Le brief ↑</a>
+    </div>
+
+    <footer>
+      <p>Méthode demandée à l'agent dans le brief : l'équation de la valeur et la construction Grand Slam d'<em>$100M Offers</em>, la règle des 30 jours et le ratio LTGP:CAC de <em>$100M Money Models</em> (Alex Hormozi) — lois du skill wealth-framework. Cette page ne calcule aucun score : elle pose les questions et assemble le brief.</p>
+    </footer>
+
+    <div class="toast" id="toast" role="status"></div>
+
+    <script>
+      (function () {
+        "use strict";
+
+        /* ---------- State ---------- */
+        var seg = { guarantee: 0, bonus: 0, proof: 0, scarcity: 0, naming: 0, upsell: 0, attraction: 0 };
+        var segTouched = { guarantee: false, bonus: false, proof: false, scarcity: false, naming: false };
+
+        var $ = function (id) { return document.getElementById(id); };
+        var form = $("offerForm");
+
+        function num(id) {
+          var v = parseFloat($(id).value);
+          return isNaN(v) || v < 0 ? 0 : v;
+        }
+        function txt(id) { return $(id).value.trim(); }
+        function money(n) {
+          return n.toLocaleString("fr-CA", { maximumFractionDigits: 0 }) + " $";
+        }
+        function clamp(n, lo, hi) { return Math.max(lo, Math.min(hi, n)); }
+
+        /* ---------- Segmented controls ---------- */
+        document.querySelectorAll(".seg").forEach(function (group) {
+          var key = group.getAttribute("data-seg");
+          var buttons = group.querySelectorAll("button");
+          buttons.forEach(function (btn) {
+            btn.setAttribute("aria-pressed", "false");
+            btn.addEventListener("click", function () {
+              seg[key] = parseInt(btn.getAttribute("data-val"), 10);
+              if (key in segTouched) segTouched[key] = true;
+              buttons.forEach(function (b) {
+                var on = b === btn;
+                b.classList.toggle("active", on);
+                b.setAttribute("aria-pressed", on ? "true" : "false");
+              });
+              update();
+            });
+          });
+          if (buttons.length) {
+            buttons[0].classList.add("active");
+            buttons[0].setAttribute("aria-pressed", "true");
+          }
+        });
+
+        function setSeg(key, val) {
+          seg[key] = val;
+          if (key in segTouched) segTouched[key] = true;
+          var group = document.querySelector('.seg[data-seg="' + key + '"]');
+          if (!group) return;
+          group.querySelectorAll("button").forEach(function (b) {
+            var on = parseInt(b.getAttribute("data-val"), 10) === val;
+            b.classList.toggle("active", on);
+            b.setAttribute("aria-pressed", on ? "true" : "false");
+          });
+        }
+
+        /* ---------- Slider scale descriptions ---------- */
+        var anchors = {
+          dream: [
+            [0, "Niveau 0 : rien de précis — « on va vous aider »."],
+            [3, "Niveau bas : un bénéfice correct, mais interchangeable avec celui des concurrents."],
+            [6, "Niveau moyen : un résultat désirable et assez précis pour être imaginé."],
+            [8, "Niveau élevé : un résultat transformateur, chiffré, que l'avatar veut vraiment."],
+            [10, "Niveau 10 : le résultat exact dont il rêve — formulé dans ses mots, avec un chiffre."]
+          ],
+          likelihood: [
+            [0, "Niveau 0 : aucune preuve à montrer."],
+            [3, "Niveau bas : quelques témoignages, aucun chiffre."],
+            [6, "Niveau moyen : des preuves réelles, mais le prospect doit encore espérer."],
+            [8, "Niveau élevé : études de cas chiffrées et mécanisme clair."],
+            [10, "Niveau 10 : prouvé, documenté, garanti."]
+          ],
+          time: [
+            [0, "Niveau 0 : résultat visible tout de suite ou presque."],
+            [3, "Niveau bas : premier résultat en quelques jours."],
+            [6, "Niveau moyen : quelques semaines avant de voir quelque chose."],
+            [8, "Niveau élevé : des mois avant le premier résultat visible."],
+            [10, "Niveau 10 : une attente très longue avant tout résultat tangible."]
+          ],
+          effort: [
+            [0, "Niveau 0 : done-for-you total — le client signe, tu livres."],
+            [3, "Niveau bas : le client fournit des accès et valide."],
+            [6, "Niveau moyen : le client doit s'impliquer sérieusement chaque semaine."],
+            [8, "Niveau élevé : grosse courbe d'apprentissage pour le client."],
+            [10, "Niveau 10 : le client fait presque tout lui-même."]
+          ]
+        };
+        function anchorFor(key, v) {
+          var list = anchors[key], out = list[0][1];
+          list.forEach(function (row) { if (v >= row[0]) out = row[1]; });
+          return out;
+        }
+
+        /* ---------- Inputs snapshot ---------- */
+        function snapshot() {
+          var marginPct = clamp(num("f-margin"), 0, 100);
+          var upfront = num("f-upfront"), monthly = num("f-monthly"), months = num("f-months");
+          var cac = num("f-cac");
+          return {
+            name: txt("f-name"), avatar: txt("f-avatar"), deliverable: txt("f-deliverable"),
+            promise: txt("f-promise"), price: num("f-price"),
+            ticketKind: $("f-ticket-kind").value,
+            dream: parseInt($("s-dream").value, 10),
+            likelihood: parseInt($("s-likelihood").value, 10),
+            time: parseInt($("s-time").value, 10),
+            effort: parseInt($("s-effort").value, 10),
+            cac: cac, marginPct: marginPct, upfront: upfront, monthly: monthly, months: months,
+            ltgp: (upfront + monthly * months) * (marginPct / 100),
+            net30: (upfront + monthly) * (marginPct / 100),
+            ratio: cac > 0 ? ((upfront + monthly * months) * (marginPct / 100)) / cac : null
+          };
+        }
+
+        var ticketLabels = {
+          "one-shot": "paiement unique",
+          "install-monthly": "installation + mensuel",
+          "monthly": "abonnement mensuel",
+          "revshare": "% des résultats / revenus"
+        };
+        var segLabels = {
+          guarantee: ["Aucune", "Remboursement simple", "Conditionnelle", "Inconditionnelle : résultat ou remboursé"],
+          bonus: ["Aucun", "1–2 génériques", "3+ nommés anti-obstacles"],
+          proof: ["Aucune", "Témoignages", "Études de cas chiffrées", "Résultats documentés vérifiables"],
+          scarcity: ["Aucune", "Artificielle", "Réelle"],
+          naming: ["Descriptif", "Bénéfice clair", "M-A-G-I-C"],
+          upsell: ["Non", "Oui"],
+          attraction: ["Non", "Oui"]
+        };
+
+        /* ---------- Completeness ---------- */
+        function completeness(s) {
+          var items = [];
+          var offerParts = [s.name !== "", s.avatar !== "", s.promise !== ""].filter(Boolean).length;
+          items.push({ id: "ck-offer", done: offerParts === 3,
+            state: offerParts === 3 ? "nom, avatar et promesse remplis" : "manque : " + [s.name === "" ? "le nom" : null, s.avatar === "" ? "l'avatar" : null, s.promise === "" ? "la promesse" : null].filter(Boolean).join(", ") });
+          items.push({ id: "ck-price", done: s.price > 0,
+            state: s.price > 0 ? money(s.price) + " (" + ticketLabels[s.ticketKind] + ")" : "le champ prix est vide" });
+          items.push({ id: "ck-levers", done: true,
+            state: "résultat " + s.dream + "/10 · probabilité " + s.likelihood + "/10 · délai " + s.time + "/10 · effort " + s.effort + "/10" });
+          var arsTouched = ["guarantee", "bonus", "proof", "scarcity", "naming"].filter(function (k) { return segTouched[k]; }).length;
+          items.push({ id: "ck-arsenal", done: arsTouched === 5,
+            state: arsTouched === 5 ? "les 5 questions ont une réponse" : arsTouched + " réponse(s) sur 5 — le reste partira comme « non déclaré »" });
+          var moneyDone = s.cac > 0 && s.marginPct > 0 && (s.upfront > 0 || s.monthly > 0);
+          items.push({ id: "ck-money", done: moneyDone,
+            state: moneyDone ? "CAC, marge et encaissements renseignés" : "manque : " + [s.cac <= 0 ? "le CAC" : null, s.marginPct <= 0 ? "la marge" : null, (s.upfront <= 0 && s.monthly <= 0) ? "le cash jour 1 ou le récurrent" : null].filter(Boolean).join(", ") });
+          var pct = Math.round(items.filter(function (i) { return i.done; }).length / items.length * 100);
+          return { items: items, pct: pct, allDone: pct === 100 };
+        }
+
+        /* ---------- Brief ---------- */
+        function buildBrief() {
+          var s = snapshot();
+          var L = [];
+          L.push("# Offer Griller — brief de scoring d'offre");
+          L.push("");
+          L.push("## L'offre");
+          L.push("- **Nom :** " + (s.name || "(non nommé)"));
+          L.push("- **Avatar :** " + (s.avatar || "(non précisé)"));
+          L.push("- **Livrable principal :** " + (s.deliverable || "(non précisé)"));
+          L.push("- **Promesse :** " + (s.promise || "(non formulée)"));
+          L.push("- **Prix :** " + (s.price > 0 ? money(s.price) + " (" + ticketLabels[s.ticketKind] + ")" : "(non précisé)"));
+          L.push("");
+          L.push("## Auto-évaluation des 4 leviers (à contester)");
+          L.push("- Résultat rêvé : " + s.dream + "/10");
+          L.push("- Probabilité perçue : " + s.likelihood + "/10");
+          L.push("- Délai avant résultat : " + s.time + "/10 (plus c'est bas, mieux c'est)");
+          L.push("- Effort du client : " + s.effort + "/10 (plus c'est bas, mieux c'est)");
+          L.push("");
+          L.push("## Contenu déclaré de l'offre");
+          L.push("- Garantie : " + segLabels.guarantee[seg.guarantee]);
+          L.push("- Bonus : " + segLabels.bonus[seg.bonus]);
+          L.push("- Preuves : " + segLabels.proof[seg.proof]);
+          L.push("- Rareté / urgence : " + segLabels.scarcity[seg.scarcity]);
+          L.push("- Nom de l'offre : " + segLabels.naming[seg.naming]);
+          L.push("");
+          L.push("## Chiffres du money model (à vérifier)");
+          L.push("- CAC : " + (s.cac > 0 ? money(s.cac) : "(non renseigné)"));
+          L.push("- Marge brute : " + (s.marginPct > 0 ? s.marginPct + " %" : "(non renseignée)"));
+          L.push("- Cash encaissé jour 1 / client : " + money(s.upfront));
+          L.push("- Récurrent / client / mois : " + money(s.monthly) + " pendant " + s.months + " mois en moyenne");
+          L.push("- Upsell / downsell en place : " + segLabels.upsell[seg.upsell]);
+          L.push("- Offre d'attraction : " + segLabels.attraction[seg.attraction]);
+          if (s.cac > 0 || s.upfront > 0 || s.monthly > 0) {
+            L.push("- Arithmétique brute (à interpréter, pas un verdict) : profit brut à vie ≈ " + money(s.ltgp) +
+              ", cash net des 30 premiers jours ≈ " + money(s.net30) +
+              (s.ratio !== null ? ", ratio LTGP:CAC ≈ " + s.ratio.toFixed(1) + ":1" : ""));
+          }
+          L.push("");
+          L.push("## Ta mission (skill wealth-framework chargé)");
+          L.push("Tu es l'agent du Offer Griller. À partir de ce brief :");
+          L.push("1. Score chaque levier de l'équation de la valeur ($100M Offers) sur 10, en contestant mon auto-évaluation si elle est trop généreuse, et justifie chaque note avec ce que le brief contient — ou signale ce qui manque.");
+          L.push("2. Score l'arsenal Grand Slam (garantie, bonus, preuves, rareté, nom M-A-G-I-C) et le money model ($100M Money Models : règle des 30 jours, ratio LTGP:CAC ≥ 3:1, continuité, offres de suite).");
+          L.push("3. Sors le **score global sur 100** et un verdict sans complaisance (grill me).");
+          L.push("4. Cite les lois pertinentes du skill pour chaque fuite identifiée.");
+          L.push("5. Donne les 3 correctifs prioritaires, chacun avec sa procédure étape par étape, plus un nom d'offre au format M-A-G-I-C et une garantie renversée adaptée.");
+          L.push("Si une donnée essentielle manque pour scorer, dis laquelle et score quand même le reste en le signalant.");
+          return L.join("\n");
+        }
+
+        /* ---------- Render ---------- */
+        function update() {
+          ["dream", "likelihood", "time", "effort"].forEach(function (k) {
+            var v = parseInt($("s-" + k).value, 10);
+            $("v-" + k).innerHTML = v + "<small>/10</small>";
+            $("a-" + k).textContent = anchorFor(k, v);
+          });
+
+          var s = snapshot();
+
+          // Raw figures (arithmetic only, no verdict)
+          var rf = [];
+          if (s.upfront > 0 || s.monthly > 0) {
+            rf.push("Profit brut à vie / client ≈ " + money(s.ltgp) + " (encaissements × " + s.marginPct + " % de marge)");
+            rf.push("Cash net des 30 premiers jours ≈ " + money(s.net30));
+            if (s.cac > 0 && s.ratio !== null) rf.push("Ratio LTGP:CAC ≈ " + s.ratio.toFixed(1) + ":1");
+          }
+          $("raw-figures").innerHTML = rf.length
+            ? '<span class="rf-title">Arithmétique brute depuis tes entrées — l\'interprétation appartient à l\'agent :</span>' + rf.join(" · ")
+            : '<span class="rf-title">Arithmétique brute depuis tes entrées :</span>Renseigne le cash jour 1 ou le récurrent pour alimenter le brief.';
+
+          // Completeness
+          var c = completeness(s);
+          c.items.forEach(function (item) {
+            var li = $(item.id);
+            li.classList.toggle("done", item.done);
+            li.querySelector(".ck-mark").textContent = item.done ? "✓" : "";
+            li.querySelector(".ck-state").textContent = item.state;
+            li.setAttribute("aria-label", item.done ? "Complété" : "À compléter");
+          });
+          $("progress-pct").textContent = c.pct + " %";
+          $("progress-bar").style.width = c.pct + "%";
+          $("mb-pct").textContent = c.pct + " %";
+          $("mb-sub").textContent = c.allDone ? "brief prêt à donner à l'agent" : "le scoring se fait par l'agent";
+
+          var ready = c.items[0].done; // minimum viable: the offer is described
+          $("btn-brief").disabled = !ready;
+          $("btn-download").disabled = !ready;
+          $("brief-title").textContent = c.allDone
+            ? "Brief complet. À l'agent de jouer."
+            : (ready ? "Brief utilisable — il reste des trous." : "Ton brief se remplit au fur et à mesure.");
+          $("next-step").textContent = !ready
+            ? "Prochaine étape : décris ton offre dans le bloc 01 pour activer le brief."
+            : (c.allDone
+              ? "Prochaine étape : colle le brief dans Claude (skill wealth-framework chargé) et demande le scoring + le grill."
+              : "Prochaine étape : complète les points ouverts, ou envoie quand même — le brief signale ce qui manque et l'agent scorera le reste.");
+
+          $("brief-preview").textContent = buildBrief();
+        }
+
+        form.addEventListener("input", update);
+        form.addEventListener("change", update);
+
+        /* ---------- Examples ---------- */
+        function setField(id, val) { $(id).value = val; }
+
+        $("btn-ex-weak").addEventListener("click", function () {
+          setField("f-name", "Formation productivité en ligne");
+          setField("f-avatar", "Tout le monde");
+          setField("f-deliverable", "40 vidéos + groupe Facebook");
+          setField("f-promise", "Devenez plus productif grâce à nos modules complets.");
+          setField("f-price", 497);
+          $("f-ticket-kind").value = "one-shot";
+          $("s-dream").value = 3; $("s-likelihood").value = 2; $("s-time").value = 8; $("s-effort").value = 9;
+          setSeg("guarantee", 0); setSeg("bonus", 1); setSeg("proof", 1); setSeg("scarcity", 1); setSeg("naming", 0);
+          setField("f-cac", 250); setField("f-margin", 90);
+          setField("f-upfront", 497); setField("f-monthly", 0); setField("f-months", 1);
+          setSeg("upsell", 0); setSeg("attraction", 0);
+          update();
+          showToast("Exemple fictif chargé : donne ce brief à l'agent et regarde-le travailler.");
+        });
+
+        $("btn-ex-strong").addEventListener("click", function () {
+          setField("f-name", "30 demandes de devis en 90 jours pour cliniques dentaires — ou on travaille gratuitement");
+          setField("f-avatar", "Cliniques dentaires de 3+ fauteuils au Québec");
+          setField("f-deliverable", "Système d'acquisition installé : page + agent web + suivi");
+          setField("f-promise", "30 demandes de devis qualifiées en 90 jours, sans que le propriétaire touche à un ordinateur. Sinon, on continue gratuitement jusqu'à les livrer.");
+          setField("f-price", 990);
+          $("f-ticket-kind").value = "install-monthly";
+          $("s-dream").value = 9; $("s-likelihood").value = 8; $("s-time").value = 3; $("s-effort").value = 2;
+          setSeg("guarantee", 3); setSeg("bonus", 2); setSeg("proof", 2); setSeg("scarcity", 2); setSeg("naming", 2);
+          setField("f-cac", 400); setField("f-margin", 80);
+          setField("f-upfront", 990); setField("f-monthly", 149); setField("f-months", 11);
+          setSeg("upsell", 1); setSeg("attraction", 1);
+          update();
+          showToast("Exemple fictif chargé : même les bonnes offres se font contester par l'agent.");
+        });
+
+        $("btn-reset").addEventListener("click", function () {
+          form.reset();
+          ["guarantee", "bonus", "proof", "scarcity", "naming", "upsell", "attraction"].forEach(function (k) { setSeg(k, 0); });
+          ["guarantee", "bonus", "proof", "scarcity", "naming"].forEach(function (k) { segTouched[k] = false; });
+          update();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+        /* ---------- Toast ---------- */
+        var toastTimer = null;
+        function showToast(msg) {
+          var t = $("toast");
+          t.textContent = msg;
+          t.classList.add("show");
+          if (toastTimer) clearTimeout(toastTimer);
+          toastTimer = setTimeout(function () { t.classList.remove("show"); }, 3400);
+        }
+
+        /* ---------- Copy / download ---------- */
+        $("btn-brief").addEventListener("click", function () {
+          var brief = buildBrief();
+          function done() { showToast("Brief copié. Colle-le dans Claude avec le skill wealth-framework chargé : l'agent score et grille."); }
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(brief).then(done, function () { fallbackCopy(brief); done(); });
+          } else {
+            fallbackCopy(brief); done();
+          }
+        });
+        function fallbackCopy(text) {
+          var ta = document.createElement("textarea");
+          ta.value = text;
+          ta.style.position = "fixed"; ta.style.opacity = "0";
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand("copy"); } catch (e) { /* ignore */ }
+          document.body.removeChild(ta);
+        }
+
+        $("btn-download").addEventListener("click", function () {
+          var blob = new Blob([buildBrief()], { type: "text/markdown;charset=utf-8" });
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement("a");
+          var name = (txt("f-name") || "offre").toLowerCase().replace(/[^a-z0-9àâäéèêëîïôöùûüç]+/gi, "-").replace(/^-+|-+$/g, "").slice(0, 40) || "offre";
+          a.href = url;
+          a.download = "brief-offer-griller-" + name + ".md";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          setTimeout(function () { URL.revokeObjectURL(url); }, 800);
+          showToast("Brief téléchargé.");
+        });
+
+        update();
+      })();
+    </script>
+  </body>
+</html>

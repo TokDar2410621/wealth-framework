@@ -74,7 +74,8 @@ follows to score and to deliver the brutal "grill me" critique:
 See "Agent-led offer scoring" in `SKILL.md` for the loop.
 
 `artifacts/` holds the interactive French deep-dive pages for *$100M Offers* and
-*$100M Money Models*, linked from their source files.
+*$100M Money Models* (linked from their source files), plus `offer-griller.html`: the
+form the user fills in to produce the agent scoring brief.
 
 ## How it was checked
 

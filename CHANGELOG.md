@@ -10,6 +10,8 @@
   the scripts interview the user and print an agent brief; the agent scores each driver,
   computes the score, and delivers the "grill me" critique with fixes (HOR-2 to HOR-10,
   MNY-1 to MNY-10). Documented in `SKILL.md` ("Agent-led offer scoring").
+- `artifacts/offer-griller.html`: the interactive form that interviews the user and
+  produces the agent scoring brief (the artifact asks, the agent scores).
 - `artifacts/`: interactive French summary pages for *$100M Offers* and *$100M Money Models*,
   linked from their source files.
 
