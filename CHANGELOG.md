@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1 (2026-10-09)
+
+- Step 0: when the skill is read through a catalog (`read-skill`), skip the freshness check and
+  open the files through the catalog's reference paths.
+
 ## 1.0.0 (2026-10-09)
 
 - First version: 110 laws from 8 books (Hormozi x2, Thiel, DeMarco, Kawasaki, Greene x2, Dalio),

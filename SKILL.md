@@ -26,6 +26,10 @@ Read the last line (JSON):
 | `offline`, `not_a_clone` | Continue with the local files; say once "freshness not verified". |
 | `error` | Tell the user and continue with the local files. |
 
+Read through a skills catalog instead of a local folder (for example with `read-skill`): skip
+this step, since the catalog's maintainer keeps it current, and open the files below through the
+reference paths the catalog lists (with `read-note`), e.g. `.../wealth-framework/cheatsheet.md`.
+
 ## Language
 
 Always answer in the user's language: French when the user writes French, English when they
