@@ -60,22 +60,23 @@ people buy and what gets executed, anonymized. Personal finance and investing ar
 
 ## Tools
 
-Agent-led scoring companions in `scripts/`. The scripts never score: they interview the
-user (or take facts as arguments) and print a markdown **agent brief**, which the agent
-follows to score and to deliver the brutal "grill me" critique:
+Code only where code beats the model: exact arithmetic, probabilities, and memory from one
+conversation to the next. Judgment stays with the agent, written as markdown protocols. Every
+tool has a manual fallback, so the skill still works where scripts cannot run.
 
-- `scripts/value_equation.py` collects the offer facts, then briefs the agent to rate each
-  Value Equation driver 1-10 with justification, compute the score, name the weakest
-  driver, and grill with fixes citing HOR-2 to HOR-10.
-- `scripts/money_model.py` collects the money-model numbers (gross profit, never revenue),
-  then briefs the agent to judge the 30-day rule and the LTGP:CAC bar with the fix order
-  from MNY-1 to MNY-10.
-
-See "Agent-led offer scoring" in `SKILL.md` for the loop.
-
-`artifacts/` holds the interactive French deep-dive pages for *$100M Offers* and
-*$100M Money Models* (linked from their source files), plus `offer-griller.html`: the
-form the user fills in to produce the agent scoring brief.
+- `scripts/journal.py`: the decision journal. Each verdict is logged with its cheapest test,
+  its deadline and the number that decides; once the deadline passes, the skill asks what
+  happened and builds the filter's own record (`stats`: tests actually run, tests met, laws
+  cited in missed tests). The file lives outside the skill, in `~/.wealth-framework/`, and is
+  never published.
+- `scripts/channel_math.py`: expected replies and deals for a number of sends, and the
+  probability of zero replies. Above 10%, a zero proves nothing (FLE-3).
+- `scripts/money_model.py`: the 30-day rule, Client-Financed Acquisition and the LTGP:CAC
+  bar for the number of people who deliver (MNY-1 to MNY-3), from gross profit, never revenue.
+- `protocols/grill-offer.md`: judging an offer on the Value Equation. It rates each driver
+  strong, medium or weak and names the weakest one; it gives no numeric score.
+- `artifacts/offer-griller.html`: a form (French) the user can fill in to brief the agent
+  before the grill.
 
 ## How it was checked
 
@@ -106,7 +107,8 @@ pytest tests
 
 `tests/test_sync.py` runs the update script against real git repositories (a local remote and
 clones): up to date, behind, a merged branch left checked out, local edits, offline, copied
-install, wrong remote.
+install, wrong remote. `tests/test_tools.py` checks the arithmetic of `money_model.py` and
+`channel_math.py`, and the journal's full loop (log, due, close, record, damaged lines).
 
 ## License
 

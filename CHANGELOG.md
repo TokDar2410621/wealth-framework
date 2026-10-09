@@ -6,14 +6,20 @@
   MNY-1 to MNY-10): monetization and offer sequencing, Client-Financed Acquisition, the
   30-day rule, LTGP:CAC bars, upsells, downsells, continuity. 120 laws in all.
 - *$100M Offers* source: M-A-G-I-C naming added to HOR-3, guarantee types detailed in HOR-5.
-- New tools: `scripts/value_equation.py` and `scripts/money_model.py`. Agent-led scoring:
-  the scripts interview the user and print an agent brief; the agent scores each driver,
-  computes the score, and delivers the "grill me" critique with fixes (HOR-2 to HOR-10,
-  MNY-1 to MNY-10). Documented in `SKILL.md` ("Agent-led offer scoring").
-- `artifacts/offer-griller.html`: the interactive form that interviews the user and
-  produces the agent scoring brief (the artifact asks, the agent scores).
-- `artifacts/`: interactive French summary pages for *$100M Offers* and *$100M Money Models*,
-  linked from their source files.
+- Tools, on one rule: code only where code beats the model.
+  - `scripts/journal.py`: decision journal (verdict, cheapest test, deadline, deciding number,
+    then the real result); `SKILL.md` checks due tests at step 0 and logs every verdict.
+  - `scripts/channel_math.py`: expected replies and deals, probability of zero (FLE-3).
+  - `scripts/money_model.py`: computes the 30-day rule and the LTGP:CAC bar (MNY-1 to MNY-3).
+  - `protocols/grill-offer.md`: the Value Equation grill as a markdown protocol, with no
+    numeric score; it replaces `scripts/value_equation.py`, whose interview mode could not
+    run when the agent launched it.
+  - `artifacts/offer-griller.html`: a form that briefs the agent; it asks for a judgment and a
+    verdict, no longer a score out of 100.
+  - `tests/test_tools.py`: 21 tests for the three scripts.
+- The deep-dive summary pages for *$100M Offers* and *$100M Money Models* moved to the
+  maintainer's brain; the repository keeps only what the agent reads.
+- Fixed a sentence in FLE-3 cut during the 1.0.0 anonymization.
 
 ## 1.0.1 (2026-10-09)
 

@@ -26,6 +26,11 @@ Read the last line (JSON):
 | `offline`, `not_a_clone` | Continue with the local files; say once "freshness not verified". |
 | `error` | Tell the user and continue with the local files. |
 
+Then run `python "<base directory of this skill>/scripts/journal.py" due`. For each test past
+its deadline, ask the user what happened (one question per test), close it with
+`journal.py close <id> --executed yes|no --outcome met|not_met`, and when a test failed, run the
+"design or execution?" guard below before anything else.
+
 Read through a skills catalog instead of a local folder (for example with `read-skill`): skip
 this step, since the catalog's maintainer keeps it current, and open the files below through the
 reference paths the catalog lists (with `read-note`), e.g. `.../wealth-framework/cheatsheet.md`.
@@ -89,28 +94,40 @@ write English. Keep law IDs and the authors' canonical names in English (Grand S
 Keep it under about 250 words unless the user asks for more. Translate the labels into the
 user's language.
 
-## Agent-led offer scoring
+**Log every verdict that has a cheapest test** in the journal, then tell the user its number in
+one line:
 
-The scripts do not score; they brief. When the user wants an offer scored
-("grill my offer", "score this"), collect the facts with the interactive form
-(`artifacts/offer-griller.html`, also available as a hosted page) or by running the
-matching script, then follow the brief it produces:
+```bash
+python "<base directory of this skill>/scripts/journal.py" add --decision "<one line>" \
+  --verdict go|conditions|no-go --laws "<IDs>" --test "<the action>" \
+  --deadline YYYY-MM-DD --decides "<the number that decides>"
+```
 
-- `scripts/value_equation.py`: interviews the user about the offer (or takes the facts
-  as arguments), then prints an agent brief. You score each Value Equation driver 1-10
-  with justification, compute the score, name the weakest driver, and deliver the brutal
-  "grill me" critique with fixes citing HOR-2 to HOR-10.
-- `scripts/money_model.py`: collects the money-model numbers, then prints an agent brief.
-  You judge the 30-day rule and the LTGP:CAC bar, then deliver the verdict with the fix
-  order citing MNY-1 to MNY-10.
+The journal is a local file outside the skill (`~/.wealth-framework/journal.jsonl`, or
+`$WEALTH_JOURNAL`); it is never published. Insight mode logs nothing.
 
-Read the brief, score from its facts only, never invent facts or numbers.
+## Tools
+
+Code only where code beats the model: exact arithmetic, probabilities, memory between
+conversations. Judgment stays with you. Every tool has a manual fallback for when scripts
+cannot run (a catalog, claude.ai).
+
+| Need | Tool | Without scripts |
+|---|---|---|
+| Grill or judge an offer | `protocols/grill-offer.md` (the user may fill the form `artifacts/offer-griller.html` first) | The same protocol: it is markdown |
+| Money model: can growth pay for itself? | `python scripts/money_model.py --cac N --profit-30d N --ltgp N --humans 0-3` | 30-day gross profit / CAC: 1 passes, 2 is the target; lifetime gross profit / CAC against 3, 6, 9 or 12 to 1 (MNY-1 to MNY-3) |
+| Is a silence a verdict? | `python scripts/channel_math.py --sends N --reply-rate R` | P(0 replies) = (1 - R) ^ N; above 10%, a zero proves nothing (FLE-3) |
+| What happened to past tests? | `python scripts/journal.py due`, `stats` | Ask the user to note the deadline and come back with the result |
+
+A script's number never stands alone: interpret it with the laws, and never feed it invented
+figures.
 
 ## Where the laws are
 
 | File | IDs | Use for |
 |---|---|---|
 | `cheatsheet.md` | all | Start here: decision rules by situation, thresholds, warning phrases |
+| `protocols/grill-offer.md` | HOR, FLS, MNY | Step by step for judging an offer on the Value Equation |
 | `sources/hormozi-100m-offers.md` | HOR | Offer, price, value, guarantee, bonuses, scarcity |
 | `sources/hormozi-100m-leads.md` | LDS | Getting leads: channels, Rule of 100, lead magnets |
 | `sources/hormozi-100m-money-models.md` | MNY | Monetization: offer sequencing, 30-day rule, upsells, downsells, continuity |

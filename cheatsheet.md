@@ -32,15 +32,15 @@ Use this first. Each line names the law to open when the case is close. Levels: 
 - **Bonuses kill one named objection each** (HOR-9 🟠). **Scarcity and urgency only when true** (HOR-10 🟠, FLS-6 🟢). Admit one real minor limit (FLS-6 🟢).
 - **Move perception before paying for real improvement**, through a visible lever (HOR-6 🟠, FLS-7 🟠). Frame the outcome through status (HOR-7 🟠).
 - **Cash limits growth** -> structure payments so the upfront amount covers acquisition (HOR-8 🟠).
-- **Before scaling paid ads** -> 30-day gross profit per customer must cover CAC, target 2x (MNY-1, MNY-2 🟠); steer on LTGP:CAC, 3:1 minimum with no human in the loop (MNY-3 🟠). For a scored verdict, run `scripts/money_model.py` and follow its agent brief.
+- **Before scaling paid ads** -> 30-day gross profit per customer must cover CAC, target 2x (MNY-1, MNY-2 🟠); steer on LTGP:CAC, 3:1 minimum with no human in the loop (MNY-3 🟠). Compute both with `scripts/money_model.py` (gross profit, never revenue).
 - **Entry offer must pay for itself** (MNY-4 🟠); **upsell the next problem the purchase created** (MNY-5 🟠); **downsell the terms, never the price** (MNY-6 🟠); **continuity only after a proven front end** (MNY-7 🟠).
-- **Score the offer on the Value Equation** before building more: run `scripts/value_equation.py`, then score it yourself from the printed brief (HOR-2 🟠).
+- **Judge the offer on the Value Equation** before building more: `protocols/grill-offer.md` rates each driver and names the weakest one, where the next effort goes (HOR-2 🟠). No numeric score.
 - **Prevention offer** -> threat and credible simple solution in the same sentence (FLS-8 🟢).
 
 ## 4. Getting the first customers
 
 - **Name the channel**: warm outreach, free content, cold outreach or paid ads (LDS-4 🟠). Volume: 100 primary actions a day (LDS-5 🟠).
-- **Warm before cold.** At low volume with no audience, a cold asynchronous channel expects about zero deals: compute expected replies before reading a silence (FLE-3 🔴).
+- **Warm before cold.** At low volume with no audience, a cold asynchronous channel expects about zero deals: compute expected replies before reading a silence (FLE-3 🔴). `scripts/channel_math.py` gives P(0 replies); above 10%, a zero is not a verdict.
 - **The warm ask that never leaves** is a calibration error: people say yes about three times more often than askers expect (FLS-9 🟢). Ask orally, at the next live contact.
 - **Inbound lead** -> answer within the hour AND schedule follow-ups 2 to 6 at once (FLE-10 🟠).
 - **0 to about 20 customers** -> do things that don't scale: recruit and set up by hand (TAB-5 🟠).

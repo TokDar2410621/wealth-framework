@@ -1,7 +1,7 @@
 # $100M Money Models: How To Make Money (Alex Hormozi, 2025)
 
 **Covers:** monetization models, offer sequencing, upsells and downsells, continuity and recurring revenue, customer-financed acquisition. **Use for:** judging how a business charges and sequences what it sells, whether growth can self-finance, which monetization link is missing, how to raise lifetime value without new products.
-**Provenance:** web research summary (French report, 2026-10-09, index-level verification across convergent secondary sources); synced 2026-10-09. **Deep dive:** `artifacts/100m-money-models-summary.html` (interactive summary page, FR).
+**Provenance:** web research summary (French report, 2026-10-09, index-level verification across convergent secondary sources); synced 2026-10-09. The deep-dive summary page stays in the maintainer's brain.
 
 ## Laws
 

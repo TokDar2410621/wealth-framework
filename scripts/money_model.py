@@ -1,93 +1,111 @@
 #!/usr/bin/env python3
-"""Interview the user about their numbers, then print an AGENT BRIEF for Claude.
+"""Compute a money model against the $100M Money Models bars (MNY-1 to MNY-3).
 
-The tool does NOT judge anything. It collects the money-model facts (interactive
-or via arguments) and prints a markdown brief. The agent (Claude, with this skill
-loaded) reads the brief and judges the model against MNY-1 to MNY-3, then
-delivers a brutal "grill me" verdict with the fix order.
+Arithmetic and thresholds are exact, so the script computes them; the agent interprets the
+result with the laws. All figures are GROSS PROFIT per customer, never revenue, and CAC is fully
+loaded (ads, sales time, onboarding).
 
-All figures are gross profit, never revenue. CAC must be fully loaded
-(ad spend, sales cost, onboarding cost).
+    python scripts/money_model.py --cac 120 --profit-30d 300 --ltgp 900 --humans 1
+    python scripts/money_model.py --cac 120 --upfront 200 --monthly 75 --months 8 --margin 70 --humans 1
 
-    python scripts/money_model.py
-    python scripts/money_model.py --cac 120 --profit-30d 300 --ltgp 900 \\
-        --humans 1 --context "SEO retainer for local SMEs"
+The second form derives gross profit: 30-day profit = (upfront + one month) x margin,
+lifetime profit = (upfront + monthly x months) x margin.
+
+The last output line is JSON. Bars are the author's (level 🟠): present them as bars, not facts.
 """
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 
-
-def ask(prompt: str, default: str = "") -> str:
-    hint = f" [{default}]" if default else ""
-    raw = input(f"{prompt}{hint}: ").strip()
-    return raw or default
+LTGP_BARS = {0: 3.0, 1: 6.0, 2: 9.0, 3: 12.0}
 
 
-def collect(args: argparse.Namespace) -> dict:
-    if args.cac is not None:
-        return {
-            "cac": args.cac,
-            "profit_30d": args.profit_30d or "not stated",
-            "ltgp": args.ltgp or "not stated",
-            "humans": args.humans if args.humans is not None else "not stated",
-            "context": args.context or "not stated",
-        }
-    print("Money-model interview (gross profit figures, never revenue).\n")
+def evaluate(cac: float, profit_30d: float, ltgp: float, humans: int) -> dict:
+    """The 30-day rule, Client-Financed Acquisition and the LTGP:CAC bar for this many humans."""
+    if cac <= 0:
+        raise ValueError("CAC must be above 0 (a channel with no acquisition cost has no ratio)")
+    if profit_30d < 0 or ltgp < 0:
+        raise ValueError("gross profit cannot be negative here")
+    if ltgp < profit_30d:
+        raise ValueError("lifetime gross profit cannot be lower than the 30-day gross profit")
+    humans = max(0, min(int(humans), 3))
+
+    ratio_30d = profit_30d / cac
+    if ratio_30d < 1:
+        rule = "fail"
+        rule_text = "fails the 30-day rule: each paid customer burns cash before paying back (MNY-2)"
+    elif ratio_30d < 2:
+        rule = "pass"
+        rule_text = "passes the 30-day rule, below the Client-Financed Acquisition target of 2x (MNY-1)"
+    else:
+        rule = "target"
+        rule_text = "meets Client-Financed Acquisition: one customer funds itself and others (MNY-1)"
+
+    bar = LTGP_BARS[humans]
+    ltgp_ratio = ltgp / cac
     return {
-        "cac": ask("Fully loaded CAC"),
-        "profit_30d": ask("Gross profit collected per customer in the first 30 days"),
-        "ltgp": ask("Lifetime gross profit per customer"),
-        "humans": ask("Humans in the delivery loop (0-3)", "0"),
-        "context": ask("What the business sells (one line)"),
+        "cac": cac,
+        "profit_30d": profit_30d,
+        "ltgp": ltgp,
+        "humans_in_delivery": humans,
+        "ratio_30d": round(ratio_30d, 2),
+        "thirty_day_rule": rule,
+        "thirty_day_text": rule_text,
+        "customers_funded_in_30d": max(0, int(ratio_30d) - 1),
+        "ltgp_cac": round(ltgp_ratio, 2),
+        "ltgp_bar": bar,
+        "ltgp_pass": ltgp_ratio >= bar,
+        "verdict": (
+            "can buy growth" if rule != "fail" and ltgp_ratio >= bar
+            else "fix the first 30 days first" if rule == "fail"
+            else "fix lifetime value before scaling spend"
+        ),
     }
 
 
-BRIEF = """# AGENT BRIEF: judge this money model (MNY-1 to MNY-3)
-
-You are the judging agent. The script collected numbers; it judged nothing.
-Judge from the numbers below only. Never invent numbers.
-
-## The numbers (user-supplied)
-- Fully loaded CAC: {cac}
-- Gross profit per customer in the first 30 days: {profit_30d}
-- Lifetime gross profit per customer (LTGP): {ltgp}
-- Humans in the delivery loop: {humans}
-- Context: {context}
-
-## Your job
-1. 30-Day Rule (MNY-2): compute 30-day profit / CAC.
-   - Below 1: FAIL, paid acquisition burns cash.
-   - 1 to 2: pass, but below the Client-Financed Acquisition target.
-   - 2 and above: target met (MNY-1), one customer funds itself plus two more.
-2. LTGP:CAC (MNY-3): the bar is 3:1 with no human in the loop, 6:1 with one,
-   9:1 with two, 12:1 with three. Compute the ratio, judge against the bar.
-3. GRILL ME. Brutal, specific, no flattery. Every hit names the violated law
-   (MNY-1 to MNY-10 only, laws that exist in sources/hormozi-100m-money-models.md)
-   and the concrete fix, in fix order: profitable attraction first (MNY-4), then
-   upsell the next problem (MNY-5), downsell the terms never the price (MNY-6),
-   continuity last (MNY-7), one offer at a time (MNY-8).
-4. Verdict: the model can buy growth / fix the first 30 days first /
-   fix lifetime value before scaling spend.
-
-Rules: cite only laws that exist in the source files, with ID and level.
-Ratios are the author's stated bars (level orange); present them as bars, not facts.
-"""
+def derive(upfront: float, monthly: float, months: float, margin_pct: float) -> tuple[float, float]:
+    """Gross profit over 30 days and over the customer's life, from revenue and margin."""
+    if not 0 < margin_pct <= 100:
+        raise ValueError("margin must be a percentage between 0 and 100")
+    margin = margin_pct / 100
+    first_month = monthly if months >= 1 else monthly * months
+    return (upfront + first_month) * margin, (upfront + monthly * months) * margin
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(
-        description="Collect money-model numbers and print the agent judging brief (MNY-1..3).")
-    parser.add_argument("--cac")
-    parser.add_argument("--profit-30d")
-    parser.add_argument("--ltgp")
-    parser.add_argument("--humans")
-    parser.add_argument("--context")
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    parser = argparse.ArgumentParser(description="Money model against MNY-1 to MNY-3 (gross profit, never revenue).")
+    parser.add_argument("--cac", type=float, required=True, help="fully loaded cost to acquire one customer")
+    parser.add_argument("--profit-30d", type=float, help="gross profit per customer collected in the first 30 days")
+    parser.add_argument("--ltgp", type=float, help="lifetime gross profit per customer")
+    parser.add_argument("--upfront", type=float, default=0.0, help="revenue collected on day 1 (with --margin)")
+    parser.add_argument("--monthly", type=float, default=0.0, help="recurring revenue per month (with --margin)")
+    parser.add_argument("--months", type=float, default=0.0, help="average months a customer stays (with --margin)")
+    parser.add_argument("--margin", type=float, help="gross margin in percent, to derive profit from revenue")
+    parser.add_argument("--humans", type=int, default=0, help="humans in the delivery loop (0 to 3)")
     args = parser.parse_args()
 
-    facts = collect(args)
-    print("\n" + BRIEF.format(**facts))
+    try:
+        if args.profit_30d is not None and args.ltgp is not None:
+            profit_30d, ltgp = args.profit_30d, args.ltgp
+        elif args.margin is not None:
+            profit_30d, ltgp = derive(args.upfront, args.monthly, args.months, args.margin)
+        else:
+            raise ValueError("give --profit-30d and --ltgp, or revenue figures with --margin")
+        result = evaluate(args.cac, profit_30d, ltgp, args.humans)
+    except ValueError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
+
+    print(f"30-day gross profit / CAC = {result['ratio_30d']}: {result['thirty_day_text']}")
+    print(f"LTGP:CAC = {result['ltgp_cac']}:1 against a bar of {result['ltgp_bar']:g}:1 "
+          f"with {result['humans_in_delivery']} human(s) in delivery (MNY-3): "
+          f"{'pass' if result['ltgp_pass'] else 'below the bar'}")
+    print(f"Verdict on the model: {result['verdict']} (bars are the author's claims, not audited data)")
+    print(json.dumps(result))
     return 0
 
 

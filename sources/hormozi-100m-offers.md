@@ -1,7 +1,7 @@
 # $100M Offers: How to Make Offers So Good People Feel Stupid Saying No (Alex Hormozi, 2021)
 
 **Covers:** offer design, pricing from perceived value, the Value Equation, the Grand Slam Offer, guarantees and risk reversal, perception and status as levers. **Use for:** judging whether an offer can carry a premium price, why a product does not convert, how to package and price, which lever to pull before building more.
-**Provenance:** book notes (French edition, pp. 57 and 59) and summary notes of the book, cross-read with Acquisition.com's public offer checklists (pricing and value, offer creation, bonuses, guarantees, scarcity and urgency); synced 2026-10-09. **Deep dive:** `artifacts/100m-offers-summary.html` (interactive summary page, FR).
+**Provenance:** book notes (French edition, pp. 57 and 59) and summary notes of the book, cross-read with Acquisition.com's public offer checklists (pricing and value, offer creation, bonuses, guarantees, scarcity and urgency); synced 2026-10-09.
 
 ## Laws
 
