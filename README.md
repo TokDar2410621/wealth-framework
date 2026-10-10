@@ -1,6 +1,6 @@
 # wealth-framework
 
-A Claude Code skill that judges business decisions against the laws of eight books, field-tested
+A Claude Code skill that judges business decisions against the laws of nine books, field-tested
 selling and execution laws, and the decision frameworks of great founders.
 
 Bring it an idea, an offer, a price or a choice. When a decision is at stake, it answers
@@ -35,6 +35,7 @@ Then talk business with Claude as usual. The skill loads on its own.
 |---|---|---|
 | Alex Hormozi, *$100M Offers* | `sources/hormozi-100m-offers.md` | HOR-1 to HOR-10 |
 | Alex Hormozi, *$100M Leads* | `sources/hormozi-100m-leads.md` | LDS-1 to LDS-12 |
+| Alex Hormozi, *$100M Money Models* | `sources/hormozi-100m-money-models.md` | MNY-1 to MNY-10 |
 | Peter Thiel, *Zero to One* | `sources/thiel-zero-to-one.md` | THI-1 to THI-8 |
 | MJ DeMarco, *The Millionaire Fastlane* (CENTS) | `sources/demarco-millionaire-fastlane.md` | DEM-1 to DEM-8 |
 | Guy Kawasaki, *The Art of the Start* | `sources/kawasaki-art-of-the-start.md` | KAW-1 to KAW-9 |
@@ -45,7 +46,7 @@ Then talk business with Claude as usual. The skill loads on its own.
 | Field laws: execution and distribution | `sources/field-laws-execution.md` | FLE-1 to FLE-12 |
 | La Table: decision frameworks of the greats (Bezos, Paul Graham, Taleb, Musk, Thiel, Zuckerberg) | `sources/la-table-frameworks.md` | TAB-1 to TAB-12 |
 
-110 laws in all. `cheatsheet.md` gathers the decision rules by situation; `glossary.md` lists
+120 laws in all. `cheatsheet.md` gathers the decision rules by situation; `glossary.md` lists
 every law by name.
 
 **Evidence levels.** Every law is marked 🟢 proven (controlled study, audited data, public law),
@@ -56,6 +57,26 @@ decides a no-go.
 **What the files are.** Distilled decision rules written from reading notes and research
 summaries, never the books' text. The field laws come from one founder's research log on why
 people buy and what gets executed, anonymized. Personal finance and investing are out of scope.
+
+## Tools
+
+Code only where code beats the model: exact arithmetic, probabilities, and memory from one
+conversation to the next. Judgment stays with the agent, written as markdown protocols. Every
+tool has a manual fallback, so the skill still works where scripts cannot run.
+
+- `scripts/journal.py`: the decision journal. Each verdict is logged with its cheapest test,
+  its deadline and the number that decides; once the deadline passes, the skill asks what
+  happened and builds the filter's own record (`stats`: tests actually run, tests met, laws
+  cited in missed tests). The file lives outside the skill, in `~/.wealth-framework/`, and is
+  never published.
+- `scripts/channel_math.py`: expected replies and deals for a number of sends, and the
+  probability of zero replies. Above 10%, a zero proves nothing (FLE-3).
+- `scripts/money_model.py`: the 30-day rule, Client-Financed Acquisition and the LTGP:CAC
+  bar for the number of people who deliver (MNY-1 to MNY-3), from gross profit, never revenue.
+- `protocols/grill-offer.md`: judging an offer on the Value Equation. It rates each driver
+  strong, medium or weak and names the weakest one; it gives no numeric score.
+- `artifacts/offer-griller.html`: a form (French) the user can fill in to brief the agent
+  before the grill.
 
 ## How it was checked
 
@@ -86,7 +107,8 @@ pytest tests
 
 `tests/test_sync.py` runs the update script against real git repositories (a local remote and
 clones): up to date, behind, a merged branch left checked out, local edits, offline, copied
-install, wrong remote.
+install, wrong remote. `tests/test_tools.py` checks the arithmetic of `money_model.py` and
+`channel_math.py`, and the journal's full loop (log, due, close, record, damaged lines).
 
 ## License
 

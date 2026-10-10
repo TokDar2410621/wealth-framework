@@ -18,7 +18,7 @@
 - **Source:** $100M Offers, Value Equation.
 
 ### HOR-3 Grand Slam Offer 🟠
-- **Rule:** When building an offer, run the six steps: (1) define the dream outcome with its timing and emotional payoff; (2) list every obstacle, 15 or more; (3) flip each obstacle into a solution; (4) choose a delivery vehicle per solution (format, frequency, intensity); (5) trim and stack: keep the 6 to 10 components of high value and acceptable cost, cut the high-cost low-value ones, prefer one-to-many delivery; (6) add the enhancers: guarantee, scarcity, urgency, bonuses, and a name. Do it because an offer built this way sits in a category of one, where price comparison stops.
+- **Rule:** When building an offer, run the six steps: (1) define the dream outcome with its timing and emotional payoff; (2) list every obstacle, 15 or more; (3) flip each obstacle into a solution; (4) choose a delivery vehicle per solution (format, frequency, intensity); (5) trim and stack: keep the 6 to 10 components of high value and acceptable cost, cut the high-cost low-value ones, prefer one-to-many delivery; (6) add the enhancers: guarantee, scarcity, urgency, bonuses, and a name built with the M-A-G-I-C formula (Magnet, Avatar, Goal, Interval, Container). Do it because an offer built this way sits in a category of one, where price comparison stops.
 - **Violation tells:** the offer can be compared line by line with a competitor's; components that cost a lot to deliver and that buyers do not value; marginal cost that grows with each client; no name; only a handful of obstacles identified.
 - **Cheapest check:** run steps 1 to 3 on paper, then show the stack to 3 prospects and ask which component they would pay for on its own.
 - **Source:** $100M Offers, Grand Slam Offer method; Acquisition.com Offer Creation Checklist.
@@ -30,7 +30,7 @@
 - **Source:** $100M Offers, pricing principles.
 
 ### HOR-5 Guarantee as a price lever 🟠
-- **Rule:** When perceived likelihood is the weak term, add a guarantee that reverses risk, because the more risk it moves from buyer to seller, the more the offer can charge. The guarantee must be credible and deliverable: prefer a conditional guarantee tied to the buyer's own execution, or a continuation guarantee (keep working until an observable improvement).
+- **Rule:** When perceived likelihood is the weak term, add a guarantee that reverses risk, because the more risk it moves from buyer to seller, the more the offer can charge. Pick the strongest credible type: unconditional, conditional (tied to the buyer's own execution), anti-guarantee, implied, or service-based (keep working free until an observable improvement). The guarantee must be credible and deliverable.
 - **Violation tells:** no guarantee at all; a magic promise the seller cannot honor; a guarantee nobody can realistically invoke.
 - **Cheapest check:** write the guarantee in one sentence, then check that the business survives its worst plausible month of claims.
 - **Source:** $100M Offers, guarantees; Acquisition.com Unbeatable Guarantee Checklist.

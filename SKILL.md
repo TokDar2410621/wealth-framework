@@ -1,12 +1,12 @@
 ---
 name: wealth-framework
-description: Business decision filter built from Hormozi ($100M Offers, $100M Leads), Thiel (Zero to One), DeMarco (The Millionaire Fastlane, CENTS), Greene (The 48 Laws of Power, The Laws of Human Nature), Kawasaki (The Art of the Start), Dalio (Principles), field-tested selling and execution laws, and founders' decision frameworks (Bezos, Paul Graham, Taleb, Musk). Use in EVERY business discussion - a business idea, an offer, a price, a choice between projects, an opportunity, a side hustle, prospecting, sales, pricing, first customers, first $1,000, "should I launch X", "is it worth it". Also in French - idee de business, offre, prix, tarif, vendre, clients, prospection, projet, rentable, lancer, ca vaut le coup. When a decision is at stake, returns a go / go with conditions / no-go verdict with sourced, evidence-graded laws and the cheapest market test; otherwise adds at most three one-line insights, or stays silent. Always answers in the user's language.
+description: Business decision filter built from Hormozi ($100M Offers, $100M Leads, $100M Money Models), Thiel (Zero to One), DeMarco (The Millionaire Fastlane, CENTS), Greene (The 48 Laws of Power, The Laws of Human Nature), Kawasaki (The Art of the Start), Dalio (Principles), field-tested selling and execution laws, and founders' decision frameworks (Bezos, Paul Graham, Taleb, Musk). Use in EVERY business discussion - a business idea, an offer, a price, a choice between projects, an opportunity, a side hustle, prospecting, sales, pricing, monetization, upsells, recurring revenue, first customers, first $1,000, "should I launch X", "is it worth it". Also in French - idee de business, offre, prix, tarif, vendre, clients, prospection, projet, rentable, lancer, ca vaut le coup. When a decision is at stake, returns a go / go with conditions / no-go verdict with sourced, evidence-graded laws and the cheapest market test; otherwise adds at most three one-line insights, or stays silent. Always answers in the user's language.
 ---
 
 # Wealth Framework
 
 A decision filter for making money. It holds an idea, an offer or a choice up to the laws of
-eight books, field-tested laws and the decision frameworks of great founders, then ends with the
+nine books, field-tested laws and the decision frameworks of great founders, then ends with the
 cheapest test that lets the market decide. Every law carries its source and its evidence level.
 
 ## Step 0: freshness, once per conversation
@@ -25,6 +25,11 @@ Read the last line (JSON):
 | `read_origin_main` | Local edits exist: read files with `git -C <path> show origin/main:<file>` and tell the user. |
 | `offline`, `not_a_clone` | Continue with the local files; say once "freshness not verified". |
 | `error` | Tell the user and continue with the local files. |
+
+Then run `python "<base directory of this skill>/scripts/journal.py" due`. For each test past
+its deadline, ask the user what happened (one question per test), close it with
+`journal.py close <id> --executed yes|no --outcome met|not_met`, and when a test failed, run the
+"design or execution?" guard below before anything else.
 
 Read through a skills catalog instead of a local folder (for example with `read-skill`): skip
 this step, since the catalog's maintainer keeps it current, and open the files below through the
@@ -89,13 +94,43 @@ write English. Keep law IDs and the authors' canonical names in English (Grand S
 Keep it under about 250 words unless the user asks for more. Translate the labels into the
 user's language.
 
+**Log every verdict that has a cheapest test** in the journal, then tell the user its number in
+one line:
+
+```bash
+python "<base directory of this skill>/scripts/journal.py" add --decision "<one line>" \
+  --verdict go|conditions|no-go --laws "<IDs>" --test "<the action>" \
+  --deadline YYYY-MM-DD --decides "<the number that decides>"
+```
+
+The journal is a local file outside the skill (`~/.wealth-framework/journal.jsonl`, or
+`$WEALTH_JOURNAL`); it is never published. Insight mode logs nothing.
+
+## Tools
+
+Code only where code beats the model: exact arithmetic, probabilities, memory between
+conversations. Judgment stays with you. Every tool has a manual fallback for when scripts
+cannot run (a catalog, claude.ai).
+
+| Need | Tool | Without scripts |
+|---|---|---|
+| Grill or judge an offer | `protocols/grill-offer.md` (the user may fill the form `artifacts/offer-griller.html` first) | The same protocol: it is markdown |
+| Money model: can growth pay for itself? | `python scripts/money_model.py --cac N --profit-30d N --ltgp N --humans 0-3` | 30-day gross profit / CAC: 1 passes, 2 is the target; lifetime gross profit / CAC against 3, 6, 9 or 12 to 1 (MNY-1 to MNY-3) |
+| Is a silence a verdict? | `python scripts/channel_math.py --sends N --reply-rate R` | P(0 replies) = (1 - R) ^ N; above 10%, a zero proves nothing (FLE-3) |
+| What happened to past tests? | `python scripts/journal.py due`, `stats` | Ask the user to note the deadline and come back with the result |
+
+A script's number never stands alone: interpret it with the laws, and never feed it invented
+figures.
+
 ## Where the laws are
 
 | File | IDs | Use for |
 |---|---|---|
 | `cheatsheet.md` | all | Start here: decision rules by situation, thresholds, warning phrases |
+| `protocols/grill-offer.md` | HOR, FLS, MNY | Step by step for judging an offer on the Value Equation |
 | `sources/hormozi-100m-offers.md` | HOR | Offer, price, value, guarantee, bonuses, scarcity |
 | `sources/hormozi-100m-leads.md` | LDS | Getting leads: channels, Rule of 100, lead magnets |
+| `sources/hormozi-100m-money-models.md` | MNY | Monetization: offer sequencing, 30-day rule, upsells, downsells, continuity |
 | `sources/thiel-zero-to-one.md` | THI | Defensibility, competition, monopoly, distribution, secrets |
 | `sources/demarco-millionaire-fastlane.md` | DEM | CENTS: is this a real business or a job in disguise? |
 | `sources/kawasaki-art-of-the-start.md` | KAW | Meaning, market size, pitch, positioning copy |
